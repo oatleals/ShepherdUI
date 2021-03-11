@@ -20,7 +20,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-
             Consumer<GlobalState>(
               builder: (context, globalState, child) => 
                 Expanded(

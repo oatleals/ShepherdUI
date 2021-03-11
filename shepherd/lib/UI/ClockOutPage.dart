@@ -25,7 +25,10 @@ class _ClockOutPageState extends State<ClockOutPage> {
               child: Row(
                 children: [
                   Text("Client ID:", style: TextStyle(fontSize: 25)),
-                  Text(" 456789", style: TextStyle(fontSize: 30)),
+                  Text(
+                    " " + Provider.of<GlobalState>(context).myController.text, 
+                    style: TextStyle(fontSize: 35)
+                  ),
                 ],
               ),
             ),

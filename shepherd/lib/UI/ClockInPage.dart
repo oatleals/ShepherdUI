@@ -23,6 +23,7 @@ class _ClockInPageState extends State<ClockInPage> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: TextField(
+                controller: Provider.of<GlobalState>(context).myController,
                 keyboardType: TextInputType.number,
                 obscureText: false,
                 decoration: InputDecoration(

@@ -5,6 +5,7 @@ class GlobalState extends ChangeNotifier
   String clientId;
   var clockRoute = '/ClockIn';
   var buttonText = Text("Clock In", style: TextStyle(fontSize: 50));
+  final myController = TextEditingController();
 
   void setConnected(bool val)
   {
@@ -24,4 +25,11 @@ class GlobalState extends ChangeNotifier
     buttonText = Text("Clock In", style: TextStyle(fontSize: 50));
     notifyListeners();
   }
+
+  void setClientId(String id)
+  {
+    clientId = id;
+    notifyListeners();
+  }
+
 }
