@@ -12,9 +12,6 @@ class _ClockOutPageState extends State<ClockOutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("User ID: 123456"),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

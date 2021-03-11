@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
+import 'ClockInPage.dart';
+import 'ClockOutPage.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -28,7 +31,13 @@ class _HomePageState extends State<HomePage> {
                       shape: BeveledRectangleBorder(),
                       primary: Colors.blue[300],
                     ),
-                    onPressed: (){ Navigator.pushNamed(context, globalState.clockRoute); }, 
+                    onPressed: () { 
+                      if (Provider.of<GlobalState>(context, listen: false).clockRoute == '/ClockIn')
+                        showClockInDialog(context); 
+                      else 
+                        showClockOutDialog(context);
+                    }, 
+                    //onPressed: (){ Navigator.pushNamed(context, globalState.clockRoute); }, 
                     child: Container(
                       child: Center(child: globalState.buttonText)
                     )
@@ -50,6 +59,29 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+
+  void showClockInDialog(BuildContext context) {
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.blue[200],
+          content: Container(height: 300, child: ClockInPage())
+        );
+      }
+    );
+  }
+  
+  void showClockOutDialog(BuildContext context) {
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Container(height: 300, child: ClockOutPage())
+        );
+      }
     );
   }
 }

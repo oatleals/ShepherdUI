@@ -28,6 +28,8 @@ class MyApp extends StatelessWidget {
       title: 'Shepherd EVV',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        accentColor: Colors.white,
+        hintColor: Colors.white
       ),
       home: HomePage(),
     );
