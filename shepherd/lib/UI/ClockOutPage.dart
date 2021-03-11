@@ -11,64 +11,75 @@ class ClockOutPage extends StatefulWidget {
 class _ClockOutPageState extends State<ClockOutPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 6,top: 8.0),
-              child: Row(
-                children: [
-                  Text("Client ID:", style: TextStyle(fontSize: 25)),
-                  Text(
-                    " " + Provider.of<GlobalState>(context).myController.text, 
-                    style: TextStyle(fontSize: 35)
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top:8.0, bottom:8.0),
-              child: Stack(
-                alignment: AlignmentDirectional.centerEnd,
-                children: [
-                  TextField(
-                    keyboardType: TextInputType.number,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Client Password'
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.camera_alt),
-                    onPressed: (){}, // OpenScanner()
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 6,top: 8.0),
+            child: Row(
+              children: [
+                Text("Client ID:", 
+                  style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white
                   )
-                ],
-              ),
+                ),
+                Text(
+                  " " + Provider.of<GlobalState>(context).myController.text, 
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.white
+                  )                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () { 
-                var globalState = Provider.of<GlobalState>(context, listen:false);
-                globalState.clockOut();
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                // This is how to get the maximum width of the display.
-                width: MediaQuery.of(context).size.width - 150,
-                child: Center(
-                  child: Center(child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Clock Out", style: TextStyle(fontSize: 30)),
-                  ),)
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top:8.0, bottom:8.0),
+            child: Stack(
+              alignment: AlignmentDirectional.centerEnd,
+              children: [
+                TextField(
+                  style: TextStyle(
+                    fontSize:35,
+                    color: Colors.blue
+                  ),
+                  keyboardType: TextInputType.number,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white
+                      )
+                    ),
+                    labelText: 'Password'
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.camera_alt),
+                  onPressed: (){}, // OpenScanner()
                 )
-              )
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+          ElevatedButton(
+            onPressed: () { 
+              var globalState = Provider.of<GlobalState>(context, listen:false);
+              globalState.clockOut();
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              // This is how to get the maximum width of the display.
+              width: MediaQuery.of(context).size.width - 150,
+              child: Center(
+                child: Center(child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text("Clock Out", style: TextStyle(fontSize: 30)),
+                ),)
+              )
+            )
+          ),
+        ],
+      );
+
   }
 }

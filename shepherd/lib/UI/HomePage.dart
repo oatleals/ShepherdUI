@@ -67,8 +67,14 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+            side: BorderSide(color: Colors.white)
+          ),
           backgroundColor: Colors.blue[200],
-          content: Container(height: 300, child: ClockInPage())
+          content: Container(
+            height: 300, 
+            child: ClockInPage())
         );
       }
     );
@@ -79,9 +85,17 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Container(height: 300, child: ClockOutPage())
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+            side: BorderSide(color: Colors.white)
+          ),
+          backgroundColor: Colors.blue[200],
+          content: Container(
+            height: 300, 
+            child: ClockOutPage())
         );
       }
     );
   }
+
 }

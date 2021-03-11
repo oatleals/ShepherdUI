@@ -27,7 +27,7 @@ class _ClockInPageState extends State<ClockInPage> {
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                  color: Colors.white,//this has no effect
+                  color: Colors.white,
                 ),
               ),              
               labelText: 'Client ID'
