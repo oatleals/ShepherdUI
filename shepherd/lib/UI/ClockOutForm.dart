@@ -20,15 +20,15 @@ class _ClockOutFormState extends State<ClockOutForm> {
               children: [
                 Text("Client ID:", 
                   style: TextStyle(
-                    fontSize: 25,
+                    fontSize: 18,
                     color: Colors.white
                   )
                 ),
                 Text(
                   " " + Provider.of<GlobalState>(context).myController.text, 
                   style: TextStyle(
-                    fontSize: 40,
-                    color: Colors.white
+                    fontSize: 35,
+                    color: Colors.blue
                   )                ),
               ],
             ),
@@ -71,10 +71,12 @@ class _ClockOutFormState extends State<ClockOutForm> {
               // This is how to get the maximum width of the display.
               width: MediaQuery.of(context).size.width - 150,
               child: Center(
-                child: Center(child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Clock Out", style: TextStyle(fontSize: 30)),
-                ),)
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Clock Out", style: TextStyle(fontSize: 40)),
+                  ),
+                )
               )
             )
           ),
