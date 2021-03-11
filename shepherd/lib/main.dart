@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shepherd/provider/GlobalState.dart';
 
 import 'UI/HomePage.dart';
 import 'UI/ClockInPage.dart';
@@ -6,7 +8,12 @@ import 'UI/ClockOutPage.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => GlobalState(),
+      child: MyApp()
+    )
+  );
 }
 
 class MyApp extends StatelessWidget {

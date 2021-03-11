@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shepherd/provider/GlobalState.dart';
 
 class ClockOutPage extends StatefulWidget {
   ClockOutPage({Key key}) : super(key: key);
@@ -48,7 +50,11 @@ class _ClockOutPageState extends State<ClockOutPage> {
               ),
             ),
             ElevatedButton(
-              onPressed: (){}, // This is where we call Clock() from Controller. 
+              onPressed: () { 
+                var globalState = Provider.of<GlobalState>(context, listen:false);
+                globalState.clockOut();
+                Navigator.of(context).pop();
+              },
               child: Container(
                 // This is how to get the maximum width of the display.
                 width: MediaQuery.of(context).size.width - 150,

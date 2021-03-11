@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shepherd/provider/GlobalState.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -18,29 +20,21 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: BeveledRectangleBorder(),
-                  primary: Colors.blue[400],
+
+            Consumer<GlobalState>(
+              builder: (context, globalState, child) => 
+                Expanded(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: BeveledRectangleBorder(),
+                      primary: Colors.blue[300],
+                    ),
+                    onPressed: (){ Navigator.pushNamed(context, globalState.clockRoute); }, 
+                    child: Container(
+                      child: Center(child: globalState.buttonText)
+                    )
+                  ),
                 ),
-                onPressed: (){ Navigator.pushNamed(context, '/ClockIn'); }, 
-                child: Container(
-                  child: Center(child: Text("Clock In", style: TextStyle(fontSize: 50)),)
-                )
-              ),
-            ),
-            Expanded(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: BeveledRectangleBorder(),
-                  primary: Colors.blue[300],
-                ),
-                onPressed: (){ Navigator.pushNamed(context, '/ClockOut'); }, 
-                child: Container(
-                  child: Center(child: Text("Clock Out", style: TextStyle(fontSize: 50)),)
-                )
-              ),
             ),
             Expanded(
               child: ElevatedButton(
