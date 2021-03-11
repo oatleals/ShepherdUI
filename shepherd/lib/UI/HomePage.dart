@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
-import 'ClockInPage.dart';
-import 'ClockOutPage.dart';
+import 'ClockInForm.dart';
+import 'ClockOutForm.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blue[200],
           content: Container(
             height: 300, 
-            child: ClockInPage())
+            child: ClockInForm())
         );
       }
     );
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.blue[200],
           content: Container(
             height: 300, 
-            child: ClockOutPage())
+            child: ClockOutForm())
         );
       }
     );

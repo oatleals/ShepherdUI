@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
-class ClockOutPage extends StatefulWidget {
-  ClockOutPage({Key key}) : super(key: key);
+class ClockOutForm extends StatefulWidget {
+  ClockOutForm({Key key}) : super(key: key);
 
   @override
-  _ClockOutPageState createState() => _ClockOutPageState();
+  _ClockOutFormState createState() => _ClockOutFormState();
 }
-class _ClockOutPageState extends State<ClockOutPage> {
+class _ClockOutFormState extends State<ClockOutForm> {
   @override
   Widget build(BuildContext context) {
       return Column(
@@ -55,7 +55,7 @@ class _ClockOutPageState extends State<ClockOutPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.camera_alt),
+                  icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
                   onPressed: (){}, // OpenScanner()
                 )
               ],

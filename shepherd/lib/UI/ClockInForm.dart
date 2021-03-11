@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
-class ClockInPage extends StatefulWidget {
-  ClockInPage({Key key}) : super(key: key);
+class ClockInForm extends StatefulWidget {
+  ClockInForm({Key key}) : super(key: key);
 
   @override
-  _ClockInPageState createState() => _ClockInPageState();
+  _ClockInFormState createState() => _ClockInFormState();
 }
-class _ClockInPageState extends State<ClockInPage> {
+class _ClockInFormState extends State<ClockInForm> {
   @override
   Widget build(BuildContext context) {
     return Column(

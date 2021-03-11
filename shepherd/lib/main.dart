@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 import 'UI/HomePage.dart';
-import 'UI/ClockInPage.dart';
-import 'UI/ClockOutPage.dart';
+import 'UI/ClockInForm.dart';
+import 'UI/ClockOutForm.dart';
 
 
 void main() {
@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/Home': (context) => HomePage(),
-        '/ClockIn': (context) => ClockInPage(),
-        '/ClockOut': (context) => ClockOutPage(),
+        '/ClockIn': (context) => ClockInForm(),
+        '/ClockOut': (context) => ClockOutForm(),
       },
       title: 'Shepherd EVV',
       theme: ThemeData(
