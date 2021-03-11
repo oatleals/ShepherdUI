@@ -29,13 +29,22 @@ class _ClockOutPageState extends State<ClockOutPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top:8.0, bottom:8.0),
-              child: TextField(
-                keyboardType: TextInputType.number,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Client Password'
-                ),
+              child: Stack(
+                alignment: AlignmentDirectional.centerEnd,
+                children: [
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Client Password'
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.camera_alt),
+                    onPressed: (){}, // OpenScanner()
+                  )
+                ],
               ),
             ),
             ElevatedButton(
