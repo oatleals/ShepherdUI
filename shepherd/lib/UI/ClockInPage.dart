@@ -21,7 +21,8 @@ class _ClockInPageState extends State<ClockInPage> {
             Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: TextField(
-                obscureText: true,
+                keyboardType: TextInputType.number,
+                obscureText: false,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Client ID'
@@ -31,7 +32,8 @@ class _ClockInPageState extends State<ClockInPage> {
             Padding(
               padding: const EdgeInsets.only(top:8.0, bottom:8.0),
               child: TextField(
-                obscureText: true,
+                keyboardType: TextInputType.number,
+                obscureText: false,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Client Password'

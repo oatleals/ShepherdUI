@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         '/ClockIn': (context) => ClockInPage(),
         '/ClockOut': (context) => ClockOutPage(),
       },
-      title: 'Flutter Demo',
+      title: 'Shepherd EVV',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
