@@ -30,9 +30,9 @@ class _ClockOutFormState extends State<ClockOutForm>
                   color: Colors.white
                 )
               ),
-              Text("  $clientID", 
+              Text("$clientID", 
                 style: TextStyle(
-                  fontSize: 35,
+                  fontSize: 30,
                   color: Colors.blue
                 )
               ),
