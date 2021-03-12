@@ -24,6 +24,7 @@ class _ClockInFormState extends State<ClockInForm>
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -47,23 +48,25 @@ class _ClockInFormState extends State<ClockInForm>
         ),
         Padding(
           padding: const EdgeInsets.only(top:8.0, bottom:8.0),
-          child: Stack(
-            alignment: AlignmentDirectional.centerEnd,
+          child: Row(
             children: [
-              TextField(
-                style: TextStyle(
-                  fontSize:35,
-                  color: Colors.blue
-                ),
-                keyboardType: TextInputType.number,
-                obscureText: false,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
+              Container(
+                width: 215,
+                child: TextField(
+                  style: TextStyle(
+                    fontSize:35,
+                    color: Colors.blue
                   ),
-                  labelText: 'Password'
+                  keyboardType: TextInputType.number,
+                  obscureText: false,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                      ),
+                    ),
+                    labelText: 'Password'
+                  ),
                 ),
               ),
               IconButton(

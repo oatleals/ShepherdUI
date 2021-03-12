@@ -16,37 +16,33 @@ class _ClockOutFormState extends State<ClockOutForm>
   {
     GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
     String clientID = globalState.clientId;
+    int numTasks = globalState.numTasks;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(left: 6,top: 8.0),
+          padding: const EdgeInsets.only(bottom: 8.0),
           child: Row(
             children: [
-              Text("Client ID:", 
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.white
-                )
-              ),
+              Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
               Text("$clientID", 
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 20,
                   color: Colors.blue
                 )
               ),
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(top:8.0, bottom:8.0),
-          child: Stack(
-            alignment: AlignmentDirectional.centerEnd,
-            children: [
-              TextField(
+        Row(
+          children: [
+            Container(
+              width: 215,
+              child: TextField(
                 style: TextStyle(
-                  fontSize:35,
+                  fontSize:20,
                   color: Colors.blue
                 ),
                 keyboardType: TextInputType.number,
@@ -60,13 +56,26 @@ class _ClockOutFormState extends State<ClockOutForm>
                   labelText: 'Password'
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
-                onPressed: (){}, // OpenScanner()
-              )
-            ],
-          ),
+            ),
+            IconButton(
+              icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
+              onPressed: (){}, // OpenScanner()
+            )
+          ],
         ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Tasks: ", style: TextStyle(fontSize: 20, color: Colors.white)),
+            IconButton(
+              icon: Icon(Icons.create_rounded, size: 35, color: Colors.blue,), 
+              onPressed: (){
+                RecursiveShowDialog(numTasks);
+              } 
+            )
+          ],
+        ),
+        
         ElevatedButton(
           onPressed: () { 
             globalState.clockOut();
@@ -86,6 +95,65 @@ class _ClockOutFormState extends State<ClockOutForm>
           )
         ),
       ],
+    );
+  }
+
+  void RecursiveShowDialog(int numTasks)
+  {
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+                side: BorderSide(color: Colors.white)
+              ),
+              backgroundColor: Colors.blue[200],
+              content: Container(
+                child: SingleChildScrollView(
+                  child: Consumer<GlobalState>(
+                    builder: (context, globalState, child) {
+                      List<Widget> rows = [];
+                      
+                      for (int i = 0; i < numTasks; i++)
+                      {
+                        globalState.taskController.add(
+                          new TextEditingController());
+
+                        var icon = IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: () { 
+                            this.setState(() {
+                              globalState.newTask();
+                              Navigator.of(context).pop();
+                              RecursiveShowDialog(globalState.numTasks);
+                            });
+                          });
+                        
+                        var textField = Container(width: 200, child: TextField(
+                          controller: globalState.taskController[i],
+                          style: TextStyle(
+                            fontSize:16,
+                            color: Colors.blue
+                          ),
+                          obscureText: false));
+
+                        var row = new Row(children: [textField, icon]);
+                        
+                        rows.add(row);
+                      }
+
+                      return Column(children: rows);
+                    }
+                  )
+                ),
+              )
+            );
+          }
+        );
+      }
     );
   }
 

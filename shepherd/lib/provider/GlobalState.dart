@@ -6,6 +6,10 @@ class GlobalState extends ChangeNotifier
 {
   String clientId;
 
+  int numTasks = 1;
+
+  List<TextEditingController> taskController = [];
+
   // These are used to switch the button between "Clock In" and "Clock Out".
   // The initial values are clock in because we're assuming the user
   // is not clocked in when launching the app.
@@ -34,6 +38,12 @@ class GlobalState extends ChangeNotifier
   {
     clockButtonRoute = '/ClockIn';
     clockButtonText = Text("Clock In", style: TextStyle(fontSize: 50));
+    notifyListeners();
+  }
+
+  void newTask() 
+  {
+    numTasks++;
     notifyListeners();
   }
 
