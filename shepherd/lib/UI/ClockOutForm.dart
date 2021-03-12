@@ -70,7 +70,7 @@ class _ClockOutFormState extends State<ClockOutForm>
             IconButton(
               icon: Icon(Icons.create_rounded, size: 35, color: Colors.blue,), 
               onPressed: (){
-                RecursiveShowDialog(numTasks);
+                recursiveShowDialog(numTasks);
               } 
             )
           ],
@@ -98,7 +98,7 @@ class _ClockOutFormState extends State<ClockOutForm>
     );
   }
 
-  void RecursiveShowDialog(int numTasks)
+  void recursiveShowDialog(int numTasks)
   {
     showDialog<AlertDialog>(
       context: context,
@@ -126,12 +126,12 @@ class _ClockOutFormState extends State<ClockOutForm>
                         if (i == numTasks -1)
                         {
                           icon = IconButton(
-                            icon: Icon(Icons.add),
+                            icon: Icon(Icons.add, color: Colors.blue),
                             onPressed: () { 
                               this.setState(() {
                                 globalState.newTask();
                                 Navigator.of(context).pop();
-                                RecursiveShowDialog(globalState.numTasks);
+                                recursiveShowDialog(globalState.numTasks);
                               });
                             }
                           );
@@ -139,24 +139,30 @@ class _ClockOutFormState extends State<ClockOutForm>
                         else
                         {
                           icon = IconButton(
-                            icon: Icon(Icons.remove),
+                            icon: Icon(Icons.remove, color: Colors.blue),
                             onPressed: () { 
                               this.setState(() {
                                 globalState.taskController.removeAt(i);
                                 globalState.numTasks--;
                                 Navigator.of(context).pop();
-                                RecursiveShowDialog(globalState.numTasks);
+                                recursiveShowDialog(globalState.numTasks);
                               });
                             }
                           );
                         } 
                                                 
-                       
                         var textField = Container(width: 200, child: TextField(
                           controller: globalState.taskController[i],
                           style: TextStyle(
                             fontSize:16,
                             color: Colors.blue
+                          ),
+                          decoration: InputDecoration(
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white
+                              )
+                            )
                           ),
                           obscureText: false));
 
