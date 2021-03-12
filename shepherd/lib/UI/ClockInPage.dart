@@ -21,7 +21,7 @@ class _ClockInPageState extends State<ClockInPage> {
               fontSize:35,
               color: Colors.blue
             ),
-            controller: Provider.of<GlobalState>(context).myController,
+            controller: Provider.of<GlobalState>(context).clientIDController,
             keyboardType: TextInputType.number,
             obscureText: false,
             decoration: InputDecoration(

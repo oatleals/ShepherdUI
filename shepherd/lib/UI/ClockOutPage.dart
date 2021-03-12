@@ -25,7 +25,7 @@ class _ClockOutPageState extends State<ClockOutPage> {
                   )
                 ),
                 Text(
-                  " " + Provider.of<GlobalState>(context).myController.text, 
+                  " " + Provider.of<GlobalState>(context).clientIDController.text, 
                   style: TextStyle(
                     fontSize: 40,
                     color: Colors.white
@@ -55,7 +55,7 @@ class _ClockOutPageState extends State<ClockOutPage> {
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.camera_alt),
+                  icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
                   onPressed: (){}, // OpenScanner()
                 )
               ],
@@ -73,7 +73,7 @@ class _ClockOutPageState extends State<ClockOutPage> {
               child: Center(
                 child: Center(child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text("Clock Out", style: TextStyle(fontSize: 30)),
+                  child: Text("Clock Out", style: TextStyle(fontSize: 40)),
                 ),)
               )
             )
