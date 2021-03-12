@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:shepherd/location/LocationFinder.dart';
 
 class GlobalState extends ChangeNotifier
@@ -12,12 +13,12 @@ class GlobalState extends ChangeNotifier
   final clientIDController = TextEditingController();
 
   // Used to grab GPS data.
-  LocationFinder locationFinder = new LocationFinder(); 
+  LocationData locationData;
 
 
 
-  GlobalState(){
-    locationFinder.init();
+  GlobalState(LocationData locData){
+    locationData = locData;
   }
 
   void setConnected(bool val)

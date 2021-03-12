@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shepherd/location/LocationFinder.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 import 'ClockInForm.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
             Text("User ID: 123456   "),
             Text("GPS:  "),
             Text(
-              Provider.of<GlobalState>(context).locationFinder.locationData.latitude.toString(),
+              Provider.of<GlobalState>(context).locationData.latitude.toString(),
               style: TextStyle(
                 fontSize: 14
               )
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               )
             ),
             Text(
-              Provider.of<GlobalState>(context).locationFinder.locationData.longitude.toString(),
+              Provider.of<GlobalState>(context).locationData.longitude.toString(),
               style: TextStyle(
                 fontSize: 14
               )
@@ -54,14 +55,14 @@ class _HomePageState extends State<HomePage> {
                       primary: Colors.blue[300],
                     ),
                     onPressed: () { 
-                      if (Provider.of<GlobalState>(context, listen: false).clockRoute == '/ClockIn')
+                      if (Provider.of<GlobalState>(context, listen: false).clockButtonRoute == '/ClockIn')
                         showClockInDialog(context); 
                       else 
                         showClockOutDialog(context);
                     }, 
                     //onPressed: (){ Navigator.pushNamed(context, globalState.clockRoute); }, 
                     child: Container(
-                      child: Center(child: globalState.buttonText)
+                      child: Center(child: globalState.clockButtonText)
                     )
                   ),
                 ),
