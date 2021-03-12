@@ -856,6 +856,7 @@ $RECYCLE.BIN/
 *.xconfig
 *.pbxproj
 *.xcworkspacedata
+.flutter-plugins-dependencies
 
 
 ## User settings
