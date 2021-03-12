@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
-class ClockOutForm extends StatefulWidget {
+class ClockOutForm extends StatefulWidget 
+{
   ClockOutForm({Key key}) : super(key: key);
 
   @override
   _ClockOutFormState createState() => _ClockOutFormState();
 }
-class _ClockOutFormState extends State<ClockOutForm> {
-
-
+class _ClockOutFormState extends State<ClockOutForm> 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -85,4 +86,5 @@ class _ClockOutFormState extends State<ClockOutForm> {
       ],
     );
   }
+
 }

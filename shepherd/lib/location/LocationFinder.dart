@@ -1,6 +1,7 @@
 import 'package:location/location.dart';
 
-class LocationFinder {
+class LocationFinder 
+{
   Location location;
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
@@ -8,27 +9,24 @@ class LocationFinder {
   // this is the object that holds latitude, longitude, and time.
   LocationData locationData; 
 
-  LocationFinder(){
+  LocationFinder()
+  {
     location = new Location();
   }
 
-  void init() async {
+  void init() async 
+  {
     _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
-        return;
-      }
-    }
 
+    if (!_serviceEnabled)  _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) return;
+      
     _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
 
+    if (_permissionGranted == PermissionStatus.denied) 
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) return;
+    
     locationData = await location.getLocation();  
   } 
 }

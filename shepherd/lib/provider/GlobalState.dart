@@ -16,8 +16,8 @@ class GlobalState extends ChangeNotifier
   LocationData locationData;
 
 
-
-  GlobalState(LocationData locData){
+  GlobalState(LocationData locData)
+  {
     locationData = locData;
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:provider/provider.dart';
+import 'package:shepherd/location/LocationFinder.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 import 'UI/HomePage.dart';
@@ -8,48 +9,29 @@ import 'UI/ClockInForm.dart';
 import 'UI/ClockOutForm.dart';
 
 
-main() async {
-
+main() async 
+{
   WidgetsFlutterBinding.ensureInitialized();
   
-  Location location = new Location();
-
-  bool _serviceEnabled;
-  PermissionStatus _permissionGranted;
-  LocationData _locationData;
-
-  _serviceEnabled = await location.serviceEnabled();
-  if (!_serviceEnabled) {
-    _serviceEnabled = await location.requestService();
-    if (!_serviceEnabled) {
-      return;
-    }
-  }
-
-  _permissionGranted = await location.hasPermission();
-  if (_permissionGranted == PermissionStatus.denied) {
-    _permissionGranted = await location.requestPermission();
-    if (_permissionGranted != PermissionStatus.granted) {
-      return;
-    }
-  }
-
-  _locationData = await location.getLocation();
-
+  LocationFinder locationFinder = new LocationFinder();
+  await locationFinder.init();
 
   runApp(
     ChangeNotifierProvider(
-      create: (context) => GlobalState(_locationData),
+      create: (context) => GlobalState(locationFinder.locationData),
       child: MyApp()
     )
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return MaterialApp(
-      routes: {
+      routes: 
+      {
         '/Home': (context) => HomePage(),
         '/ClockIn': (context) => ClockInForm(),
         '/ClockOut': (context) => ClockOutForm(),

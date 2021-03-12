@@ -3,15 +3,18 @@ import 'package:provider/provider.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 
-class ClockInForm extends StatefulWidget {
+class ClockInForm extends StatefulWidget 
+{
   ClockInForm({Key key}) : super(key: key);
 
   @override
   _ClockInFormState createState() => _ClockInFormState();
 }
-class _ClockInFormState extends State<ClockInForm> {
+class _ClockInFormState extends State<ClockInForm> 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -83,4 +86,5 @@ class _ClockInFormState extends State<ClockInForm> {
       ],
     );
   }
+
 }

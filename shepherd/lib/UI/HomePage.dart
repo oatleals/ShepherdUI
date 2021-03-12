@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shepherd/location/LocationFinder.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 import 'ClockInForm.dart';
 import 'ClockOutForm.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget 
+{
   HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> 
+{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) 
+  {
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -85,7 +87,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void showClockInDialog(BuildContext context) {
+  void showClockInDialog(BuildContext context) 
+  {
     showDialog<AlertDialog>(
       context: context,
       builder: (context) {
@@ -103,7 +106,8 @@ class _HomePageState extends State<HomePage> {
     );
   }
   
-  void showClockOutDialog(BuildContext context) {
+  void showClockOutDialog(BuildContext context) 
+  {
     showDialog<AlertDialog>(
       context: context,
       builder: (context) {
