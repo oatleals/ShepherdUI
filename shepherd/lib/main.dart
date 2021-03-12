@@ -13,6 +13,9 @@ main() async
   WidgetsFlutterBinding.ensureInitialized();
   
   LocationFinder locationFinder = new LocationFinder();
+  // We need to wait for the locationFinder to pull data before we run the app
+  // because the HomePage uses locationData in its build().
+  // ignore: await_only_futures
   await locationFinder.init();
 
   runApp(
