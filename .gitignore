@@ -857,7 +857,7 @@ $RECYCLE.BIN/
 *.pbxproj
 *.xcworkspacedata
 .flutter-plugins-dependencies
-
+generated_plugin_registrant.dart
 
 ## User settings
 xcuserdata/
