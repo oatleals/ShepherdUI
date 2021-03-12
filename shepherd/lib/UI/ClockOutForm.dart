@@ -122,16 +122,36 @@ class _ClockOutFormState extends State<ClockOutForm>
                         globalState.taskController.add(
                           new TextEditingController());
 
-                        var icon = IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed: () { 
-                            this.setState(() {
-                              globalState.newTask();
-                              Navigator.of(context).pop();
-                              RecursiveShowDialog(globalState.numTasks);
-                            });
-                          });
-                        
+                        var icon;
+                        if (i == numTasks -1)
+                        {
+                          icon = IconButton(
+                            icon: Icon(Icons.add),
+                            onPressed: () { 
+                              this.setState(() {
+                                globalState.newTask();
+                                Navigator.of(context).pop();
+                                RecursiveShowDialog(globalState.numTasks);
+                              });
+                            }
+                          );
+                        }
+                        else
+                        {
+                          icon = IconButton(
+                            icon: Icon(Icons.remove),
+                            onPressed: () { 
+                              this.setState(() {
+                                globalState.taskController.removeAt(i);
+                                globalState.numTasks--;
+                                Navigator.of(context).pop();
+                                RecursiveShowDialog(globalState.numTasks);
+                              });
+                            }
+                          );
+                        } 
+                                                
+                       
                         var textField = Container(width: 200, child: TextField(
                           controller: globalState.taskController[i],
                           style: TextStyle(
