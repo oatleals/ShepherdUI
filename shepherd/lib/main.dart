@@ -6,7 +6,6 @@ import 'package:shepherd/provider/GlobalState.dart';
 import 'UI/HomePage.dart';
 import 'UI/ClockInForm.dart';
 import 'UI/ClockOutForm.dart';
-import 'location/LocationFinder.dart';
 
 
 main() async {

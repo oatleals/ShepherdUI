@@ -20,23 +20,23 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Row(
           children: [
-            Text("User ID: 123456   "),
-            Text("GPS:  "),
+            Text("User ID: 123456   ", style: TextStyle(fontSize: 15)),
+            Text("GPS:  ", style: TextStyle(fontSize: 15)),
             Text(
               Provider.of<GlobalState>(context).locationData.latitude.toString(),
               style: TextStyle(
-                fontSize: 14
+                fontSize: 13
               )
             ),
             Text(", ",
               style: TextStyle(
-                fontSize: 14
+                fontSize: 13
               )
             ),
             Text(
               Provider.of<GlobalState>(context).locationData.longitude.toString(),
               style: TextStyle(
-                fontSize: 14
+                fontSize: 13
               )
             ),
           ],

@@ -852,20 +852,10 @@ $RECYCLE.BIN/
 *.lnk
 
 
-### https://raw.github.com/github/gitignore/340e2fe08a2356c2e3760ff58c3a9e1fddf08060/Global/Xcode.gitignore
-
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-
-
-
 ## New shepherd ignores
 *.xconfig
 *.pbxproj
 *.xcworkspacedata
-
 
 
 ## User settings
