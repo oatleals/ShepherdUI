@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
+
 class ClockInForm extends StatefulWidget {
   ClockInForm({Key key}) : super(key: key);
 

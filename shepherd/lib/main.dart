@@ -7,7 +7,7 @@ import 'UI/ClockInForm.dart';
 import 'UI/ClockOutForm.dart';
 
 
-void main() {
+main()  {
   runApp(
     ChangeNotifierProvider(
       create: (context) => GlobalState(),

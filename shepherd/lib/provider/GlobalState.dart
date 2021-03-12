@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:shepherd/location/LocationFinder.dart';
 
 class GlobalState extends ChangeNotifier
 {
+  LocationFinder locationFinder = new LocationFinder(); 
+
   String clientId;
   var clockRoute = '/ClockIn';
   var buttonText = Text("Clock In", style: TextStyle(fontSize: 50));
   final clientIDController = TextEditingController();
+
+
+  GlobalState(){
+    locationFinder.init();
+  }
 
   void setConnected(bool val)
   {

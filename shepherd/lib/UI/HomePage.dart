@@ -17,7 +17,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("User ID: 123456"),
+        title: Row(
+          children: [
+            Text("User ID: 123456   "),
+            Text("GPS:  "),
+            Text(
+              Provider.of<GlobalState>(context).locationFinder.locationData.latitude.toString(),
+              style: TextStyle(
+                fontSize: 14
+              )
+            ),
+            Text(", ",
+              style: TextStyle(
+                fontSize: 14
+              )
+            ),
+            Text(
+              Provider.of<GlobalState>(context).locationFinder.locationData.longitude.toString(),
+              style: TextStyle(
+                fontSize: 14
+              )
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Column(
