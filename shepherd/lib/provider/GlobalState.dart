@@ -3,12 +3,17 @@ import 'package:shepherd/location/LocationFinder.dart';
 
 class GlobalState extends ChangeNotifier
 {
+  String clientId;
+
+  var clockButtonRoute = '/ClockIn';
+  var clockButtonText = Text("Clock In", style: TextStyle(fontSize: 50));
+
+  // Used to grab data from TextField objects.
+  final clientIDController = TextEditingController();
+
+  // Used to grab GPS data.
   LocationFinder locationFinder = new LocationFinder(); 
 
-  String clientId;
-  var clockRoute = '/ClockIn';
-  var buttonText = Text("Clock In", style: TextStyle(fontSize: 50));
-  final clientIDController = TextEditingController();
 
 
   GlobalState(){
@@ -22,15 +27,15 @@ class GlobalState extends ChangeNotifier
 
   void clockIn()
   {
-    clockRoute = '/ClockOut';
-    buttonText = Text("Clock Out", style: TextStyle(fontSize: 50));
+    clockButtonRoute = '/ClockOut';
+    clockButtonText = Text("Clock Out", style: TextStyle(fontSize: 50));
     notifyListeners();
   }
 
   void clockOut()
   {
-    clockRoute = '/ClockIn';
-    buttonText = Text("Clock In", style: TextStyle(fontSize: 50));
+    clockButtonRoute = '/ClockIn';
+    clockButtonText = Text("Clock In", style: TextStyle(fontSize: 50));
     notifyListeners();
   }
 
