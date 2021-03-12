@@ -76,23 +76,26 @@ class _ClockOutFormState extends State<ClockOutForm>
           ],
         ),
         
-        ElevatedButton(
-          onPressed: () { 
-            globalState.clockOut();
-            Navigator.of(context).pop();
-          },
-          child: Container(
-            // This is how to get the maximum width of the display.
-            width: MediaQuery.of(context).size.width - 150,
-            child: Center(
+        Padding(
+          padding: const EdgeInsets.only(top:30),
+          child: ElevatedButton(
+            onPressed: () { 
+              globalState.clockOut();
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              // This is how to get the maximum width of the display.
+              width: MediaQuery.of(context).size.width - 150,
               child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Clock Out", style: TextStyle(fontSize: 40)),
-                ),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Clock Out", style: TextStyle(fontSize: 40)),
+                  ),
+                )
               )
             )
-          )
+          ),
         ),
       ],
     );
