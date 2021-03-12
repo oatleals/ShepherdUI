@@ -15,6 +15,13 @@ class _ClockInFormState extends State<ClockInForm>
   @override
   Widget build(BuildContext context) 
   {
+    // Grab reference of clientIdController from GlobalState so that we can
+    // connect it to the TextField where the user enters the Client ID.  This 
+    // way, we can can reference the controller outside of this scope and get 
+    // the Client ID value anywhere in the project.
+    GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
+    TextEditingController textFieldController = globalState.clientIDController;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -25,7 +32,7 @@ class _ClockInFormState extends State<ClockInForm>
               fontSize:35,
               color: Colors.blue
             ),
-            controller: Provider.of<GlobalState>(context).clientIDController,
+            controller: textFieldController,
             keyboardType: TextInputType.number,
             obscureText: false,
             decoration: InputDecoration(
@@ -53,7 +60,7 @@ class _ClockInFormState extends State<ClockInForm>
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.white,//this has no effect
+                      color: Colors.white,
                     ),
                   ),
                   labelText: 'Password'
@@ -61,15 +68,14 @@ class _ClockInFormState extends State<ClockInForm>
               ),
               IconButton(
                 icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
-                onPressed: (){}, // OpenScanner()
+                onPressed: (){}, // For scanning password.
               )
             ],
           ),
         ),
         ElevatedButton(
           onPressed: () { 
-            var globalState = Provider.of<GlobalState>(context, listen:false);
-            globalState.clockIn();
+            globalState.clockIn(clientId: textFieldController.text);
             Navigator.of(context).pop();
           },  
           child: Container(

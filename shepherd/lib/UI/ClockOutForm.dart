@@ -14,6 +14,9 @@ class _ClockOutFormState extends State<ClockOutForm>
   @override
   Widget build(BuildContext context) 
   {
+    GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
+    String clientID = globalState.clientId;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -27,12 +30,12 @@ class _ClockOutFormState extends State<ClockOutForm>
                   color: Colors.white
                 )
               ),
-              Text(
-                " " + Provider.of<GlobalState>(context).clientIDController.text, 
+              Text("  $clientID", 
                 style: TextStyle(
                   fontSize: 35,
                   color: Colors.blue
-                )                ),
+                )
+              ),
             ],
           ),
         ),
@@ -66,7 +69,6 @@ class _ClockOutFormState extends State<ClockOutForm>
         ),
         ElevatedButton(
           onPressed: () { 
-            var globalState = Provider.of<GlobalState>(context, listen:false);
             globalState.clockOut();
             Navigator.of(context).pop();
           },

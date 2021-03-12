@@ -18,6 +18,19 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) 
   {
+    // Grab data from GlobalState.
+    bool clockedOut = 
+      Provider.of<GlobalState>(context, listen: false)
+        .clockButtonRoute == '/ClockIn';
+    
+    String latitude = 
+      Provider.of<GlobalState>(context)
+        .locationFinder.locationData.latitude.toString();
+    
+    String longitude = 
+      Provider.of<GlobalState>(context)
+        .locationFinder.locationData.longitude.toString();
+
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -25,7 +38,7 @@ class _HomePageState extends State<HomePage>
             Text("User ID: 123456   ", style: TextStyle(fontSize: 15)),
             Text("GPS:  ", style: TextStyle(fontSize: 15)),
             Text(
-              Provider.of<GlobalState>(context).locationData.latitude.toString(),
+              latitude,
               style: TextStyle(
                 fontSize: 13
               )
@@ -36,7 +49,7 @@ class _HomePageState extends State<HomePage>
               )
             ),
             Text(
-              Provider.of<GlobalState>(context).locationData.longitude.toString(),
+              longitude,
               style: TextStyle(
                 fontSize: 13
               )
@@ -57,12 +70,11 @@ class _HomePageState extends State<HomePage>
                       primary: Colors.blue[300],
                     ),
                     onPressed: () { 
-                      if (Provider.of<GlobalState>(context, listen: false).clockButtonRoute == '/ClockIn')
+                      if (clockedOut)
                         showClockInDialog(context); 
                       else 
                         showClockOutDialog(context);
                     }, 
-                    //onPressed: (){ Navigator.pushNamed(context, globalState.clockRoute); }, 
                     child: Container(
                       child: Center(child: globalState.clockButtonText)
                     )
@@ -77,7 +89,9 @@ class _HomePageState extends State<HomePage>
                 ),
                 onPressed: (){ Navigator.pushNamed(context, '/ViewHistory'); }, 
                 child: Container(
-                  child: Center(child: Text("View History", style: TextStyle(fontSize: 50)),)
+                  child: Center(
+                    child: Text("View History", style: TextStyle(fontSize: 50)),
+                  )
                 )
               ),
             ),
@@ -100,7 +114,8 @@ class _HomePageState extends State<HomePage>
           backgroundColor: Colors.blue[200],
           content: Container(
             height: 300, 
-            child: ClockInForm())
+            child: ClockInForm()
+          )
         );
       }
     );
@@ -119,7 +134,8 @@ class _HomePageState extends State<HomePage>
           backgroundColor: Colors.blue[200],
           content: Container(
             height: 300, 
-            child: ClockOutForm())
+            child: ClockOutForm()
+          )
         );
       }
     );

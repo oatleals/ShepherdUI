@@ -6,6 +6,9 @@ class GlobalState extends ChangeNotifier
 {
   String clientId;
 
+  // These are used to switch the button between "Clock In" and "Clock Out".
+  // The initial values are clock in because we're assuming the user
+  // is not clocked in when launching the app.
   var clockButtonRoute = '/ClockIn';
   var clockButtonText = Text("Clock In", style: TextStyle(fontSize: 50));
 
@@ -13,21 +16,15 @@ class GlobalState extends ChangeNotifier
   final clientIDController = TextEditingController();
 
   // Used to grab GPS data.
-  LocationData locationData;
+  LocationFinder locationFinder;
 
+  // This is a constructor that initializes this.locationFinder with the 
+  // 1 argument passed.
+  GlobalState(this.locationFinder);
 
-  GlobalState(LocationData locData)
+  void clockIn({String clientId})
   {
-    locationData = locData;
-  }
-
-  void setConnected(bool val)
-  {
-    notifyListeners();
-  }
-
-  void clockIn()
-  {
+    this.clientId = clientId;
     clockButtonRoute = '/ClockOut';
     clockButtonText = Text("Clock Out", style: TextStyle(fontSize: 50));
     notifyListeners();
@@ -37,12 +34,6 @@ class GlobalState extends ChangeNotifier
   {
     clockButtonRoute = '/ClockIn';
     clockButtonText = Text("Clock In", style: TextStyle(fontSize: 50));
-    notifyListeners();
-  }
-
-  void setClientId(String id)
-  {
-    clientId = id;
     notifyListeners();
   }
 

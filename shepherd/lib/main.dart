@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/location/LocationFinder.dart';
 import 'package:shepherd/provider/GlobalState.dart';
@@ -18,7 +17,7 @@ main() async
 
   runApp(
     ChangeNotifierProvider(
-      create: (context) => GlobalState(locationFinder.locationData),
+      create: (context) => GlobalState(locationFinder),
       child: MyApp()
     )
   );
