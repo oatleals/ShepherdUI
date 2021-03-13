@@ -79,8 +79,14 @@ class _ClockInFormState extends State<ClockInForm>
         ElevatedButton(
           onPressed: () { 
             final snackBar = SnackBar(
-              content: Text('Clock In SUCCESS',
-                style: TextStyle(color: Colors.green, fontSize: 24)));
+              content: Row(
+                children: [
+                  Text('Clock In: ',
+                    style: TextStyle(color: Colors.white, fontSize: 24)),
+                  Text('SUCCESS',
+                    style: TextStyle(color: Colors.green, fontSize: 24)),
+                ],
+              ));
 
             globalState.clockIn(clientId: textFieldController.text);
 

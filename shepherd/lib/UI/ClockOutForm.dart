@@ -81,8 +81,14 @@ class _ClockOutFormState extends State<ClockOutForm>
           child: ElevatedButton(
             onPressed: () {
               final snackBar = SnackBar(
-                content: Text('Clock Out SUCCESS',
-                  style: TextStyle(color: Colors.green, fontSize: 24)));
+                content: Row(
+                  children: [
+                    Text('Clock Out: ', 
+                      style: TextStyle(color: Colors.white, fontSize:24),),
+                    Text('SUCCESS',
+                      style: TextStyle(color: Colors.green, fontSize: 24)),
+                  ],
+                ));
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
