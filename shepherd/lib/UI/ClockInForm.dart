@@ -37,7 +37,7 @@ class _ClockInFormState extends State<ClockInForm>
             keyboardType: TextInputType.number,
             obscureText: false,
             decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
+              enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: Colors.white,
                 ),
@@ -60,7 +60,7 @@ class _ClockInFormState extends State<ClockInForm>
                   keyboardType: TextInputType.number,
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.white,
                       ),
@@ -78,7 +78,13 @@ class _ClockInFormState extends State<ClockInForm>
         ),
         ElevatedButton(
           onPressed: () { 
+            final snackBar = SnackBar(
+              content: Text('Clock In SUCCESS',
+                style: TextStyle(color: Colors.green, fontSize: 24)));
+
             globalState.clockIn(clientId: textFieldController.text);
+
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
             Navigator.of(context).pop();
           },  
           child: Container(

@@ -79,7 +79,13 @@ class _ClockOutFormState extends State<ClockOutForm>
         Padding(
           padding: const EdgeInsets.only(top:30),
           child: ElevatedButton(
-            onPressed: () { 
+            onPressed: () {
+              final snackBar = SnackBar(
+                content: Text('Clock Out SUCCESS',
+                  style: TextStyle(color: Colors.green, fontSize: 24)));
+
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
               globalState.clockOut();
               Navigator.of(context).pop();
             },
