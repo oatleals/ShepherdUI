@@ -13,7 +13,7 @@ void main() {
   test('''Initial route for top button in HomePage takes the user to ClockInForm. 
         After clocking in, the button changes its route''', () 
   {
-    GlobalState globalState = new GlobalState(null);
+    GlobalState globalState = new GlobalState(null, null);
     expect(globalState.clockButtonRoute, '/ClockIn');
 
     globalState.clockIn();

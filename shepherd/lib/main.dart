@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:path/path.dart';
 import 'package:shepherd/domain_data/LocalDBContainer.dart';
-import 'package:sqflite/sqflite.dart';
 
 import 'package:shepherd/location/LocationFinder.dart';
 import 'package:shepherd/provider/GlobalState.dart';
@@ -22,7 +20,6 @@ main() async
   LocalDBContainer localdb = new LocalDBContainer();
   await localdb.init();
   
-
   runApp(
     ChangeNotifierProvider(
       create: (context) => GlobalState(locationFinder, localdb),
