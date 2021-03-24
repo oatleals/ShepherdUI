@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:shepherd/location/LocationFinder.dart';
 
 class GlobalState extends ChangeNotifier
