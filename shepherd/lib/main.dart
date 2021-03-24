@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shepherd/domain_data/LocalDBContainer.dart';
+
 import 'package:shepherd/location/LocationFinder.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
@@ -13,17 +15,18 @@ main() async
   WidgetsFlutterBinding.ensureInitialized();
   
   LocationFinder locationFinder = new LocationFinder();
-  // We need to wait for the locationFinder to pull data before we run the app
-  // because the HomePage uses locationData in its build().
-  // ignore: await_only_futures
   await locationFinder.init();
 
+  LocalDBContainer localdb = new LocalDBContainer();
+  await localdb.init();
+  
   runApp(
     ChangeNotifierProvider(
-      create: (context) => GlobalState(locationFinder),
+      create: (context) => GlobalState(locationFinder, localdb),
       child: MyApp()
     )
   );
+
 }
 
 class MyApp extends StatelessWidget 
@@ -47,4 +50,5 @@ class MyApp extends StatelessWidget
       home: HomePage(),
     );
   }
+  
 }

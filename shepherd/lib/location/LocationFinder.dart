@@ -14,7 +14,7 @@ class LocationFinder
     location = new Location();
   }
 
-  void init() async 
+  Future<void> init() async 
   {
     _serviceEnabled = await location.serviceEnabled();
 

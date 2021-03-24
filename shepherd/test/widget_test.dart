@@ -5,26 +5,21 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shepherd/provider/GlobalState.dart';
 
-import 'package:shepherd/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  test('''Initial route for top button in HomePage takes the user to ClockInForm. 
+        After clocking in, the button changes its route''', () 
+  {
+    GlobalState globalState = new GlobalState(null, null);
+    expect(globalState.clockButtonRoute, '/ClockIn');
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    globalState.clockIn();
+    expect(globalState.clockButtonRoute, '/ClockOut');
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    globalState.clockOut();
+    expect(globalState.clockButtonRoute, '/ClockIn');
   });
 }
