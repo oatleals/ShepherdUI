@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shepherd/domain_data/LocalDBContainer.dart';
+import 'package:shepherd/domain_data/WorkData.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 
@@ -21,6 +23,7 @@ class _ClockInFormState extends State<ClockInForm>
     // the Client ID value anywhere in the project.
     GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
     TextEditingController textFieldController = globalState.clientIDController;
+    LocalDBContainer localdbContainer = globalState.localdbContainer;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -57,6 +60,7 @@ class _ClockInFormState extends State<ClockInForm>
                     fontSize:35,
                     color: Colors.blue
                   ),
+                  controller: globalState.clientPassController,
                   keyboardType: TextInputType.number,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -77,7 +81,8 @@ class _ClockInFormState extends State<ClockInForm>
           ),
         ),
         ElevatedButton(
-          onPressed: () { 
+          onPressed: () 
+          { 
             final snackBar = SnackBar(
               content: Row(
                 children: [
@@ -88,10 +93,21 @@ class _ClockInFormState extends State<ClockInForm>
                 ],
               ));
 
-            globalState.clockIn(clientId: textFieldController.text);
+            WorkData workData = new WorkData(
+              isClockIn: true,
+              userId: 123456,
+              clientId: int.parse(globalState.clientIDController.text),
+              clientPass: int.parse(globalState.clientPassController.text),
+              time: globalState.locationFinder.locationData.time,
+              latitude: globalState.locationFinder.locationData.latitude,
+              longitude: globalState.locationFinder.locationData.longitude
+            );
 
+            globalState.clockIn(clientId: textFieldController.text);
+            localdbContainer.insert(workData);
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             Navigator.of(context).pop();
+
           },  
           child: Container(
             // This is how to get the maximum width of the display.
