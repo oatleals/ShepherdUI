@@ -13,16 +13,13 @@ import 'UI/ClockOutForm.dart';
 main() async 
 {
   WidgetsFlutterBinding.ensureInitialized();
-  
-  LocationFinder locationFinder = new LocationFinder();
-  await locationFinder.getLocation();
 
   LocalDBContainer localdb = new LocalDBContainer();
   await localdb.init();
   
   runApp(
     ChangeNotifierProvider(
-      create: (context) => GlobalState(locationFinder, localdb),
+      create: (context) => GlobalState(localdb),
       child: MyApp()
     )
   );

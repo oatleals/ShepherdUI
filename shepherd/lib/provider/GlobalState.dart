@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shepherd/domain_data/LocalDBContainer.dart';
-import 'package:shepherd/location/LocationFinder.dart';
 
 class GlobalState extends ChangeNotifier
 {
@@ -8,7 +7,6 @@ class GlobalState extends ChangeNotifier
   bool isClockedIn;
   String clientId;
   String userId;
-  LocationFinder locationFinder;
   LocalDBContainer localdbContainer;
 
   // Connection data
@@ -25,7 +23,7 @@ class GlobalState extends ChangeNotifier
   final clientPassController = TextEditingController();
   
 
-  GlobalState(this.locationFinder, this.localdbContainer)
+  GlobalState(this.localdbContainer)
   {
     userId = '000000';
 

@@ -23,28 +23,16 @@ class _HomePageState extends State<HomePage>
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Text("User ID: $userId  ", style: TextStyle(fontSize: 15)),
-            Text("GPS:  ", style: TextStyle(fontSize: 15)),
-            Text(
-              globalState.locationFinder.locationData.latitude.toString(),
-              style: TextStyle(
-                fontSize: 13
-              )
-            ),
-            Text(", ",
-              style: TextStyle(
-                fontSize: 13
-              )
-            ),
-            Text(
-              globalState.locationFinder.locationData.longitude.toString(),
-              style: TextStyle(
-                fontSize: 13
-              )
-            ),
-          ],
+        title: Padding(
+          padding: const EdgeInsets.only(left:8.0, right:8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Joe Smith  ", style: TextStyle(fontSize: 15)),
+              Text("ID: $userId  ", style: TextStyle(fontSize: 15)),
+              
+            ],
+          ),
         ),
       ),
       body: Center(
