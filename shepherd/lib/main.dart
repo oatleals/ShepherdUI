@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/domain_data/LocalDBContainer.dart';
 
-import 'package:shepherd/location/LocationFinder.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 import 'UI/HomePage.dart';
@@ -10,12 +9,12 @@ import 'UI/ClockInForm.dart';
 import 'UI/ClockOutForm.dart';
 
 
-main() async 
+main()
 {
   WidgetsFlutterBinding.ensureInitialized();
 
   LocalDBContainer localdb = new LocalDBContainer();
-  await localdb.init();
+  localdb.init();
   
   runApp(
     ChangeNotifierProvider(
