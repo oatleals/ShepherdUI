@@ -40,7 +40,7 @@ class _ClockOutFormState extends State<ClockOutForm>
         Row(
           children: [
             Container(
-              width: 215,
+              width: 200,
               child: TextField(
                 style: TextStyle(
                   fontSize:20,

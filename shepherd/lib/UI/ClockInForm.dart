@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/controllers/ClockController.dart';
-import 'package:shepherd/domain_data/LocalDBContainer.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 
@@ -23,7 +22,6 @@ class _ClockInFormState extends State<ClockInForm>
     // the Client ID value anywhere in the project.
     GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
     TextEditingController clientIdText = globalState.clientIDController;
-    LocalDBContainer localdbContainer = globalState.localdbContainer;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
