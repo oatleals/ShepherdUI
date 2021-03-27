@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shepherd/controllers/ClockController.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 class ClockOutForm extends StatefulWidget 
@@ -80,20 +81,7 @@ class _ClockOutFormState extends State<ClockOutForm>
           padding: const EdgeInsets.only(top:30),
           child: ElevatedButton(
             onPressed: () {
-              final snackBar = SnackBar(
-                content: Row(
-                  children: [
-                    Text('Clock Out: ', 
-                      style: TextStyle(color: Colors.white, fontSize:24),),
-                    Text('SUCCESS',
-                      style: TextStyle(color: Colors.green, fontSize: 24)),
-                  ],
-                ));
-
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-              globalState.clockOut();
-              Navigator.of(context).pop();
+              ClockController.clockOut(context);
             },
             child: Container(
               // This is how to get the maximum width of the display.
@@ -134,7 +122,7 @@ class _ClockOutFormState extends State<ClockOutForm>
                       
                       for (int i = 0; i < numTasks; i++)
                       {
-                        globalState.taskController.add(
+                        globalState.taskControllers.add(
                           new TextEditingController());
 
                         var icon;
@@ -157,7 +145,7 @@ class _ClockOutFormState extends State<ClockOutForm>
                             icon: Icon(Icons.remove, color: Colors.blue),
                             onPressed: () { 
                               this.setState(() {
-                                globalState.taskController.removeAt(i);
+                                globalState.taskControllers.removeAt(i);
                                 globalState.numTasks--;
                                 Navigator.of(context).pop();
                                 recursiveShowDialog(globalState.numTasks);
@@ -167,7 +155,7 @@ class _ClockOutFormState extends State<ClockOutForm>
                         } 
                                                 
                         var textField = Container(width: 200, child: TextField(
-                          controller: globalState.taskController[i],
+                          controller: globalState.taskControllers[i],
                           style: TextStyle(
                             fontSize:16,
                             color: Colors.blue

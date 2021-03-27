@@ -18,7 +18,7 @@ class WorkData
     {this.isClockIn, this.userId, this.clientId, this.clientPass, 
     this.time, this.latitude, this.longitude, this.tasks, this.isAuthenticated});
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> stringObjMap() {
     return {
       'isClockIn' : isClockIn,
       'userId' : userId,
@@ -29,6 +29,20 @@ class WorkData
       'longitude' : longitude,
       'tasks' : tasks,
       'isAuthenticated' : isAuthenticated
+    };
+  }
+
+  Map<String, String> stringStringMap() {
+    return {
+      'isClockIn' : isClockIn.toString(),
+      'userId' : userId.toString(),
+      'clientId' : clientId.toString(),
+      'clientPass' : clientPass.toString(),
+      'time' : time.toString(),
+      'latitude' : latitude.toString(),
+      'longitude' : longitude.toString(),
+      'tasks' : tasks.toString(),
+      'isAuthenticated' : isAuthenticated.toString()
     };
   }
 }

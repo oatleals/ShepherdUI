@@ -18,27 +18,17 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) 
   {
-    // Grab data from GlobalState.
-    bool clockedOut = 
-      Provider.of<GlobalState>(context, listen: false)
-        .clockButtonRoute == '/ClockIn';
-    
-    String latitude = 
-      Provider.of<GlobalState>(context)
-        .locationFinder.locationData.latitude.toString();
-    
-    String longitude = 
-      Provider.of<GlobalState>(context)
-        .locationFinder.locationData.longitude.toString();
+    var globalState = Provider.of<GlobalState>(context, listen: false);
+    String userId = globalState.userId;
 
     return Scaffold(
       appBar: AppBar(
         title: Row(
           children: [
-            Text("User ID: 123456   ", style: TextStyle(fontSize: 15)),
+            Text("User ID: $userId  ", style: TextStyle(fontSize: 15)),
             Text("GPS:  ", style: TextStyle(fontSize: 15)),
             Text(
-              latitude,
+              globalState.locationFinder.locationData.latitude.toString(),
               style: TextStyle(
                 fontSize: 13
               )
@@ -49,7 +39,7 @@ class _HomePageState extends State<HomePage>
               )
             ),
             Text(
-              longitude,
+              globalState.locationFinder.locationData.longitude.toString(),
               style: TextStyle(
                 fontSize: 13
               )
@@ -69,11 +59,12 @@ class _HomePageState extends State<HomePage>
                       shape: BeveledRectangleBorder(),
                       primary: Colors.blue[300],
                     ),
-                    onPressed: () { 
-                      if (clockedOut)
-                        showClockInDialog(context); 
-                      else 
+                    onPressed: () 
+                    { 
+                      if (globalState.isClockedIn)
                         showClockOutDialog(context);
+                      else 
+                        showClockInDialog(context); 
                     }, 
                     child: Container(
                       child: Center(child: globalState.clockButtonText)

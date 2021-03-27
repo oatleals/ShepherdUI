@@ -33,6 +33,7 @@ dependencies:
   location: ^3.0.0
   sqflite:
   path:
+  http: 
 
   awesome_dialog: 
 

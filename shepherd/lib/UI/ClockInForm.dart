@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shepherd/controllers/ClockController.dart';
 import 'package:shepherd/domain_data/LocalDBContainer.dart';
-import 'package:shepherd/domain_data/WorkData.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 
@@ -22,7 +22,7 @@ class _ClockInFormState extends State<ClockInForm>
     // way, we can can reference the controller outside of this scope and get 
     // the Client ID value anywhere in the project.
     GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
-    TextEditingController textFieldController = globalState.clientIDController;
+    TextEditingController clientIdText = globalState.clientIDController;
     LocalDBContainer localdbContainer = globalState.localdbContainer;
 
     return Column(
@@ -36,7 +36,7 @@ class _ClockInFormState extends State<ClockInForm>
               fontSize:35,
               color: Colors.blue
             ),
-            controller: textFieldController,
+            controller: clientIdText,
             keyboardType: TextInputType.number,
             obscureText: false,
             decoration: InputDecoration(
@@ -54,7 +54,7 @@ class _ClockInFormState extends State<ClockInForm>
           child: Row(
             children: [
               Container(
-                width: 215,
+                width: 200,
                 child: TextField(
                   style: TextStyle(
                     fontSize:35,
@@ -74,41 +74,18 @@ class _ClockInFormState extends State<ClockInForm>
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
+                icon: Icon(Icons.camera_alt, size: 30, color: Colors.blue),
                 onPressed: (){}, // For scanning password.
               )
             ],
           ),
         ),
         ElevatedButton(
-          onPressed: () 
+          onPressed: () async
           { 
-            final snackBar = SnackBar(
-              content: Row(
-                children: [
-                  Text('Clock In: ',
-                    style: TextStyle(color: Colors.white, fontSize: 24)),
-                  Text('SUCCESS',
-                    style: TextStyle(color: Colors.green, fontSize: 24)),
-                ],
-              ));
-
-            WorkData workData = new WorkData(
-              isClockIn: true,
-              userId: 123456,
-              clientId: int.parse(globalState.clientIDController.text),
-              clientPass: int.parse(globalState.clientPassController.text),
-              time: globalState.locationFinder.locationData.time,
-              latitude: globalState.locationFinder.locationData.latitude,
-              longitude: globalState.locationFinder.locationData.longitude
-            );
-
-            globalState.clockIn(clientId: textFieldController.text);
-            localdbContainer.insert(workData);
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            Navigator.of(context).pop();
-
+            ClockController.clockIn(context);
           },  
+
           child: Container(
             // This is how to get the maximum width of the display.
             width: MediaQuery.of(context).size.width - 150,

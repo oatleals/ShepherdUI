@@ -28,7 +28,7 @@ class LocalDBContainer
   {
     await localdb.insert(
       'workData',
-      workData.toMap(),
+      workData.stringObjMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
