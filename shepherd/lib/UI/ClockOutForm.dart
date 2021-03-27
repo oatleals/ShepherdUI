@@ -51,7 +51,8 @@ class _ClockOutFormState extends State<ClockOutForm>
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Colors.white
+                      color: Colors.white,
+                      width: 2
                     )
                   ),
                   labelText: 'Password'
@@ -111,7 +112,7 @@ class _ClockOutFormState extends State<ClockOutForm>
             return AlertDialog(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                side: BorderSide(color: Colors.white)
+                side: BorderSide(color: Colors.white, width: 3)
               ),
               backgroundColor: Colors.blue[200],
               content: Container(
@@ -163,7 +164,8 @@ class _ClockOutFormState extends State<ClockOutForm>
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                                color: Colors.white
+                                color: Colors.white,
+                                width: 2
                               )
                             )
                           ),

@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget
       theme: ThemeData(
         primarySwatch: Colors.blue,
         accentColor: Colors.white,
-        hintColor: Colors.white
+        hintColor: Colors.white,
       ),
       home: HomePage(),
     );

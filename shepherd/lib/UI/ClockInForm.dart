@@ -41,6 +41,7 @@ class _ClockInFormState extends State<ClockInForm>
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(
                   color: Colors.white,
+                  width: 2
                 ),
               ),              
               labelText: 'Client ID'
@@ -66,6 +67,7 @@ class _ClockInFormState extends State<ClockInForm>
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.white,
+                        width: 2
                       ),
                     ),
                     labelText: 'Password'

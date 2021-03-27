@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage>
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.white)
+            side: BorderSide(color: Colors.white, width: 3)
           ),
           backgroundColor: Colors.blue[200],
           content: Container(
@@ -105,7 +105,7 @@ class _HomePageState extends State<HomePage>
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.white)
+            side: BorderSide(color: Colors.white, width: 3)
           ),
           backgroundColor: Colors.blue[200],
           content: Container(
