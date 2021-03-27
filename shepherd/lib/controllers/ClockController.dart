@@ -11,7 +11,6 @@ class ClockController
   {
     final globalState = Provider.of<GlobalState>(context, listen:false);
     globalState.localdbContainer;
-    globalState.backendIsVerifying = true;
 
     LocationFinder locFinder = new LocationFinder();
     await locFinder.getLocation();
@@ -77,7 +76,6 @@ class ClockController
 
     globalState.clockIn(clientId: globalState.clientIDController.text);
     globalState.localdbContainer.insert(workData);
-    globalState.backendIsVerifying = false;
       
     Navigator.of(context).pop();
     Navigator.of(context).pop();
@@ -155,7 +153,6 @@ class ClockController
 
     globalState.clockOut();
     globalState.localdbContainer.insert(workData);
-    globalState.backendIsVerifying = false;
       
     Navigator.of(context).pop();
     Navigator.of(context).pop();

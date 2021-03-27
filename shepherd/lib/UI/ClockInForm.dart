@@ -20,7 +20,7 @@ class _ClockInFormState extends State<ClockInForm>
     // connect it to the TextField where the user enters the Client ID.  This 
     // way, we can can reference the controller outside of this scope and get 
     // the Client ID value anywhere in the project.
-    GlobalState globalState = Provider.of<GlobalState>(context, listen:true);
+    GlobalState globalState = Provider.of<GlobalState>(context);
     TextEditingController clientIdText = globalState.clientIDController;
 
     return Column(

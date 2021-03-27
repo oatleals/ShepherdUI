@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) 
   {
-    var globalState = Provider.of<GlobalState>(context, listen: true);
+    var globalState = Provider.of<GlobalState>(context);
     String userId = globalState.userId;
 
     return Scaffold(
@@ -39,26 +39,23 @@ class _HomePageState extends State<HomePage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Consumer<GlobalState>(
-              builder: (context, globalState, child) => 
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: BeveledRectangleBorder(),
-                      primary: Colors.blue[300],
-                    ),
-                    onPressed: () 
-                    {                       
-                      if (globalState.isClockedIn)
-                        showClockOutDialog(context);
-                      else 
-                        showClockInDialog(context); 
-                    }, 
-                    child: Container(
-                      child: Center(child: globalState.clockButtonText)
-                    )
-                  ),
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: BeveledRectangleBorder(),
+                  primary: Colors.blue[300],
                 ),
+                onPressed: () 
+                {                       
+                  if (globalState.isClockedIn)
+                    showClockOutDialog(context);
+                  else 
+                    showClockInDialog(context); 
+                }, 
+                child: Container(
+                  child: Center(child: globalState.clockButtonText)
+                )
+              ),
             ),
             Expanded(
               child: ElevatedButton(

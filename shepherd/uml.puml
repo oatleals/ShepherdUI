@@ -1,0 +1,112 @@
+@startuml
+set namespaceSeparator ::
+
+class "shepherd::UI::HomePage.dart::HomePage" {
+  +_HomePageState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "shepherd::UI::HomePage.dart::HomePage"
+
+class "shepherd::UI::HomePage.dart::_HomePageState" {
+  +Widget* build()
+  +void showClockInDialog()
+  +void showClockOutDialog()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "shepherd::UI::HomePage.dart::_HomePageState"
+
+class "shepherd::UI::ClockOutForm.dart::ClockOutForm" {
+  +_ClockOutFormState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "shepherd::UI::ClockOutForm.dart::ClockOutForm"
+
+class "shepherd::UI::ClockOutForm.dart::_ClockOutFormState" {
+  +Widget* build()
+  +void recursiveShowDialog()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "shepherd::UI::ClockOutForm.dart::_ClockOutFormState"
+
+class "shepherd::UI::ClockInForm.dart::ClockInForm" {
+  +_ClockInFormState* createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "shepherd::UI::ClockInForm.dart::ClockInForm"
+
+class "shepherd::UI::ClockInForm.dart::_ClockInFormState" {
+  +Widget* build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "shepherd::UI::ClockInForm.dart::_ClockInFormState"
+
+class "shepherd::domain_data::LocalDBContainer.dart::LocalDBContainer" {
+  +Database* localdb
+  +Future<void>* init()
+  +Future<void>* insert()
+}
+
+"shepherd::domain_data::LocalDBContainer.dart::LocalDBContainer" o-- "sqflite_common::sqlite_api.dart::Database*"
+
+class "shepherd::domain_data::WorkData.dart::WorkData" {
+  +bool* isClockIn
+  +bool* isAuthenticated
+  +int* userId
+  +int* clientId
+  +int* clientPass
+  +double* time
+  +double* latitude
+  +double* longitude
+  +List<String*>* tasks
+  +Map<String*, dynamic>* stringObjMap()
+  +Map<String*, String*>* stringStringMap()
+}
+
+class "shepherd::location::LocationFinder.dart::LocationFinder" {
+  +Location* location
+  -bool* _serviceEnabled
+  -PermissionStatus* _permissionGranted
+  +LocationData* locationData
+  +Future<void>* getLocation()
+}
+
+"shepherd::location::LocationFinder.dart::LocationFinder" o-- "location::location.dart::Location*"
+"shepherd::location::LocationFinder.dart::LocationFinder" o-- "location_platform_interface::location_platform_interface.dart::PermissionStatus*"
+"shepherd::location::LocationFinder.dart::LocationFinder" o-- "location_platform_interface::location_platform_interface.dart::LocationData*"
+
+class "shepherd::provider::GlobalState.dart::GlobalState" {
+  +bool* isClockedIn
+  +String* clientId
+  +String* userId
+  +LocalDBContainer* localdbContainer
+  +bool* backendIsVerifying
+  +int* numTasks
+  +List<TextEditingController*>* taskControllers
+  +String* clockButtonRoute
+  +Text* clockButtonText
+  +TextEditingController* clientIDController
+  +TextEditingController* clientPassController
+  +void clockIn()
+  +void clockOut()
+  +void newTask()
+}
+
+"shepherd::provider::GlobalState.dart::GlobalState" o-- "shepherd::domain_data::LocalDBContainer.dart::LocalDBContainer*"
+"shepherd::provider::GlobalState.dart::GlobalState" o-- "flutter::src::widgets::text.dart::Text*"
+"shepherd::provider::GlobalState.dart::GlobalState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController*"
+"flutter::src::foundation::change_notifier.dart::ChangeNotifier" <|-- "shepherd::provider::GlobalState.dart::GlobalState"
+
+class "shepherd::main.dart::MyApp" {
+  +Widget* build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "shepherd::main.dart::MyApp"
+
+class "shepherd::controllers::ClockController.dart::ClockController" {
+  {static} +Future<void>* clockIn()
+  {static} +Future<void>* clockOut()
+  {static} +void showProgressIndicator()
+}
+
+
+@enduml

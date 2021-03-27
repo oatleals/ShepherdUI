@@ -43,7 +43,6 @@ class GlobalState extends ChangeNotifier
     this.clientId = clientId;
     clockButtonRoute = '/ClockOut';
     clockButtonText = Text("Clock Out", style: TextStyle(fontSize: 50));
-    backendIsVerifying = true;
     notifyListeners();
   }
 
@@ -52,7 +51,6 @@ class GlobalState extends ChangeNotifier
     isClockedIn = false;
     clockButtonRoute = '/ClockIn';
     clockButtonText = Text("Clock In", style: TextStyle(fontSize: 50));
-    backendIsVerifying = true;
     notifyListeners();
   }
 
