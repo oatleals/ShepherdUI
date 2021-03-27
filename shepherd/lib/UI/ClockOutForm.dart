@@ -40,7 +40,7 @@ class _ClockOutFormState extends State<ClockOutForm>
         Row(
           children: [
             Container(
-              width: 200,
+              width: 175,
               child: TextField(
                 style: TextStyle(
                   fontSize:20,
@@ -154,7 +154,7 @@ class _ClockOutFormState extends State<ClockOutForm>
                           );
                         } 
                                                 
-                        var textField = Container(width: 200, child: TextField(
+                        var textField = Container(width: 175, child: TextField(
                           controller: globalState.taskControllers[i],
                           style: TextStyle(
                             fontSize:16,
@@ -169,12 +169,15 @@ class _ClockOutFormState extends State<ClockOutForm>
                           ),
                           obscureText: false));
 
-                        var row = new Row(children: [textField, icon]);
+                        var row = new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [textField, icon]);
                         
                         rows.add(row);
                       }
 
-                      return Column(children: rows);
+                      return Column(
+                        children: rows);
                     }
                   )
                 ),
