@@ -15,7 +15,7 @@ main() async
   WidgetsFlutterBinding.ensureInitialized();
   
   LocationFinder locationFinder = new LocationFinder();
-  await locationFinder.init();
+  await locationFinder.getLocation();
 
   LocalDBContainer localdb = new LocalDBContainer();
   await localdb.init();

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shepherd/domain_data/LocalDBContainer.dart';
 import 'package:shepherd/domain_data/WorkData.dart';
 import 'package:http/http.dart' as http;
 import 'package:shepherd/provider/GlobalState.dart';
@@ -11,7 +10,10 @@ class ClockController
   {
     final globalState = Provider.of<GlobalState>(context, listen:false);
     globalState.localdbContainer;
-    await globalState.locationFinder.init();
+    globalState.backendIsVerifying = true;
+    await globalState.locationFinder.getLocation();
+
+    await showProgressIndicator(context);
 
     SnackBar snackBar;
 
@@ -72,19 +74,25 @@ class ClockController
 
     globalState.clockIn(clientId: globalState.clientIDController.text);
     globalState.localdbContainer.insert(workData);
+    globalState.backendIsVerifying = false;
       
     Navigator.of(context).pop();
+    Navigator.of(context).pop();
+
   }
 
   static Future<void> clockOut(BuildContext context) async
   {
     final globalState = Provider.of<GlobalState>(context, listen:false);
     globalState.localdbContainer;
-    await globalState.locationFinder.init();
+    await globalState.locationFinder.getLocation();
+
+    await showProgressIndicator(context);
 
     SnackBar snackBar;
 
     WorkData workData = new WorkData(
+      isAuthenticated: false,
       isClockIn: true,
       userId: int.parse(globalState.userId),
       clientId: int.parse(globalState.clientIDController.text),
@@ -121,6 +129,7 @@ class ClockController
         )
       );
 
+      workData.isAuthenticated = true;
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
     else
@@ -141,8 +150,52 @@ class ClockController
 
     globalState.clockOut();
     globalState.localdbContainer.insert(workData);
+    globalState.backendIsVerifying = false;
       
     Navigator.of(context).pop();
+    Navigator.of(context).pop();
+
+  }
+
+  static void showProgressIndicator(BuildContext context)
+  {
+    showGeneralDialog(
+      context: context,
+      pageBuilder: (BuildContext buildContext,
+          Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return SafeArea(
+          child: Builder(builder: (context) {
+            return Material(
+                color: Colors.transparent,
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                        height: 200.0,
+                        width: 250.0,
+                        color: Colors.transparent,
+                        child:
+                            Column(
+                              children: [
+                                Center(child: CircularProgressIndicator()),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "Waiting for verification from server.",
+                                    style: TextStyle(color: Colors.white, fontSize: 12)
+                                  ),
+                                )
+                              ],
+                            ))));
+          }),
+        );
+      },
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context)
+          .modalBarrierDismissLabel,
+      barrierColor: Color(0xAA000000),
+      transitionDuration: const Duration(milliseconds: 150)
+    );
   }
 
 }

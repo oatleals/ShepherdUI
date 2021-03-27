@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) 
   {
-    var globalState = Provider.of<GlobalState>(context, listen: false);
+    var globalState = Provider.of<GlobalState>(context, listen: true);
     String userId = globalState.userId;
 
     return Scaffold(
@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage>
                       primary: Colors.blue[300],
                     ),
                     onPressed: () 
-                    { 
+                    {                       
                       if (globalState.isClockedIn)
                         showClockOutDialog(context);
                       else 
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage>
           )
         );
       }
-    );
+    ); 
   }
   
   void showClockOutDialog(BuildContext context) 

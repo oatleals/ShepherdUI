@@ -15,7 +15,7 @@ class _ClockOutFormState extends State<ClockOutForm>
   @override
   Widget build(BuildContext context) 
   {
-    GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
+    GlobalState globalState = Provider.of<GlobalState>(context, listen:true);
     String clientID = globalState.clientId;
     int numTasks = globalState.numTasks;
 
