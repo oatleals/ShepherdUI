@@ -24,29 +24,40 @@ class _ClockInFormState extends State<ClockInForm>
     TextEditingController clientIdText = globalState.clientIDController;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: TextField(
-            style: TextStyle(
-              fontSize:35,
-              color: Colors.blue
-            ),
-            controller: clientIdText,
-            keyboardType: TextInputType.number,
-            obscureText: false,
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.white,
-                  width: 2
+        Stack(
+          alignment: AlignmentDirectional.topEnd,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: TextField(
+                style: TextStyle(
+                  fontSize:35,
+                  color: Colors.blue
                 ),
-              ),              
-              labelText: 'Client ID'
+                controller: clientIdText,
+                keyboardType: TextInputType.number,
+                obscureText: false,
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2
+                    ),
+                  ),              
+                  labelText: 'Client ID'
+                ),
+              ),
             ),
-          ),
+            IconButton(
+              iconSize: 30,
+              color: Colors.white,
+              onPressed:() { Navigator.of(context).pop(); }, 
+              icon: Icon(Icons.close)
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(top:8.0, bottom:8.0),
@@ -60,7 +71,7 @@ class _ClockInFormState extends State<ClockInForm>
                     fontSize:35,
                     color: Colors.blue
                   ),
-                  controller: globalState.clientPassController,
+                  controller: globalState.clockInPassController,
                   keyboardType: TextInputType.number,
                   obscureText: false,
                   decoration: InputDecoration(

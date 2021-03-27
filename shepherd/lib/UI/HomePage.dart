@@ -82,16 +82,19 @@ class _HomePageState extends State<HomePage>
     showDialog<AlertDialog>(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.white, width: 3)
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          body: AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+              side: BorderSide(color: Colors.white, width: 3)
+            ),
+            backgroundColor: Colors.blue[200],
+            content: Container(
+              height: 300, 
+              child: ClockInForm()
+            )
           ),
-          backgroundColor: Colors.blue[200],
-          content: Container(
-            height: 300, 
-            child: ClockInForm()
-          )
         );
       }
     ); 
@@ -102,19 +105,22 @@ class _HomePageState extends State<HomePage>
     showDialog<AlertDialog>(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.white, width: 3)
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          body: AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+              side: BorderSide(color: Colors.white, width: 3)
+            ),
+            backgroundColor: Colors.blue[200],
+            content: Container(
+              height: 300, 
+              child: ClockOutForm()
+            )
           ),
-          backgroundColor: Colors.blue[200],
-          content: Container(
-            height: 300, 
-            child: ClockOutForm()
-          )
         );
       }
-    );
+    ); 
   }
 
 }

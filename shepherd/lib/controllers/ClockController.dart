@@ -10,7 +10,22 @@ class ClockController
   static Future<void> clockIn(BuildContext context) async
   {
     final globalState = Provider.of<GlobalState>(context, listen:false);
-    globalState.localdbContainer;
+    if (globalState.clientIDController.text.characters.length != 6 ||
+        globalState.clockInPassController.text.characters.length != 6)
+    {
+      final snackBar = SnackBar(
+        content: Row(
+          children: [
+            Text('Invalid Client ID or Password',
+              style: TextStyle(color: Colors.red, fontSize: 20)),
+          ],
+        )
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    };
 
     LocationFinder locFinder = new LocationFinder();
     await locFinder.getLocation();
@@ -23,7 +38,7 @@ class ClockController
       isClockIn: true,
       userId: int.parse(globalState.userId),
       clientId: int.parse(globalState.clientIDController.text),
-      clientPass: int.parse(globalState.clientPassController.text),
+      clientPass: int.parse(globalState.clockInPassController.text),
       time: locFinder.locationData.time,
       latitude: locFinder.locationData.latitude,
       longitude: locFinder.locationData.longitude
@@ -85,7 +100,21 @@ class ClockController
   static Future<void> clockOut(BuildContext context) async
   {
     final globalState = Provider.of<GlobalState>(context, listen:false);
-    globalState.localdbContainer;
+    if (globalState.clockOutPassController.text.characters.length != 6)
+    {
+      final snackBar = SnackBar(
+        content: Row(
+          children: [
+            Text('Invalid Client ID or Password',
+              style: TextStyle(color: Colors.red, fontSize: 20)),
+          ],
+        )
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+      return;
+    };
 
     LocationFinder locFinder = new LocationFinder();
     await locFinder.getLocation();
@@ -99,7 +128,7 @@ class ClockController
       isClockIn: true,
       userId: int.parse(globalState.userId),
       clientId: int.parse(globalState.clientIDController.text),
-      clientPass: int.parse(globalState.clientPassController.text),
+      clientPass: int.parse(globalState.clockInPassController.text),
       time: locFinder.locationData.time,
       latitude: locFinder.locationData.latitude,
       longitude: locFinder.locationData.longitude

@@ -17,7 +17,8 @@ class GlobalState extends ChangeNotifier
 
   // Used to grab data from TextField objects.
   final clientIDController = TextEditingController();
-  final clientPassController = TextEditingController();
+  final clockInPassController = TextEditingController();
+  final clockOutPassController = TextEditingController();
   
 
   GlobalState(this.localdbContainer)
@@ -26,8 +27,7 @@ class GlobalState extends ChangeNotifier
 
     isClockedIn = false;
 
-    // Query database.  If every entry isAuthenticated, set isClockedIn = false
-    // Otherwise, grab the entry with the newest timestamp, check its 
+    // Query database, grab the entry with the newest timestamp, check its 
     // isClockedIn value, and set GlobalState's isClockedIn accordingly. 
   }
 

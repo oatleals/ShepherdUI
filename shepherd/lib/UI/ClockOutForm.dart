@@ -23,19 +23,30 @@ class _ClockOutFormState extends State<ClockOutForm>
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Row(
-            children: [
-              Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
-              Text("$clientID", 
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.blue
-                )
+        Stack(
+          alignment: AlignmentDirectional.topEnd,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Row(
+                children: [
+                  Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  Text("$clientID", 
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.blue
+                    )
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            IconButton(
+              iconSize: 30,
+              color: Colors.white,
+              onPressed:() { Navigator.of(context).pop(); }, 
+              icon: Icon(Icons.close)
+            ),
+          ],
         ),
         Row(
           children: [
@@ -46,6 +57,7 @@ class _ClockOutFormState extends State<ClockOutForm>
                   fontSize:20,
                   color: Colors.blue
                 ),
+                controller: globalState.clockOutPassController,
                 keyboardType: TextInputType.number,
                 obscureText: false,
                 decoration: InputDecoration(
