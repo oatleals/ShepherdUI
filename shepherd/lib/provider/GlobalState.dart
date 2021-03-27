@@ -9,9 +9,6 @@ class GlobalState extends ChangeNotifier
   String userId;
   LocalDBContainer localdbContainer;
 
-  // Connection data
-  bool backendIsVerifying = false;
-
   // UI data
   int numTasks = 1;
   List<TextEditingController> taskControllers = [];
