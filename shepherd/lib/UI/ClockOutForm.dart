@@ -19,96 +19,101 @@ class _ClockOutFormState extends State<ClockOutForm>
     String clientID = globalState.clientId;
     int numTasks = globalState.numTasks;
 
+    var top2 = 10;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Stack(
-          alignment: AlignmentDirectional.topEnd,
+        Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                children: [
-                  Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
-                  Text("$clientID", 
+            Stack(
+              alignment: AlignmentDirectional.topEnd,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
+                      Text("$clientID", 
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue
+                        )
+                      ),
+                    ],
+                  ),
+                ),
+                IconButton(
+                  iconSize: 30,
+                  color: Colors.white,
+                  onPressed:() { Navigator.of(context).pop(); }, 
+                  icon: Icon(Icons.close)
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                  width: 175,
+                  child: TextField(
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize:20,
                       color: Colors.blue
-                    )
+                    ),
+                    controller: globalState.clockOutPassController,
+                    keyboardType: TextInputType.number,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 2
+                        )
+                      ),
+                      labelText: 'Password'
+                    ),
                   ),
-                ],
-              ),
-            ),
-            IconButton(
-              iconSize: 30,
-              color: Colors.white,
-              onPressed:() { Navigator.of(context).pop(); }, 
-              icon: Icon(Icons.close)
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Container(
-              width: 175,
-              child: TextField(
-                style: TextStyle(
-                  fontSize:20,
-                  color: Colors.blue
                 ),
-                controller: globalState.clockOutPassController,
-                keyboardType: TextInputType.number,
-                obscureText: false,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                      width: 2
-                    )
-                  ),
-                  labelText: 'Password'
-                ),
-              ),
-            ),
-            IconButton(
-              icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
-              onPressed: (){}, // OpenScanner()
-            )
-          ],
-        ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("Tasks: ", style: TextStyle(fontSize: 20, color: Colors.white)),
-            IconButton(
-              icon: Icon(Icons.create_rounded, size: 35, color: Colors.blue,), 
-              onPressed: (){
-                recursiveShowDialog(numTasks);
-              } 
-            )
-          ],
-        ),
-        
-        Padding(
-          padding: const EdgeInsets.only(top:30),
-          child: ElevatedButton(
-            onPressed: () {
-              ClockController.clockOut(context);
-            },
-            child: Container(
-              // This is how to get the maximum width of the display.
-              width: MediaQuery.of(context).size.width - 150,
-              child: Center(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Clock Out", style: TextStyle(fontSize: 40)),
-                  ),
+                IconButton(
+                  icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
+                  onPressed: (){}, // OpenScanner()
                 )
-              )
+              ],
+            ),
+            Container(
+              height: 150,
+              child: SingleChildScrollView(
+                child: TextField(
+                  decoration:InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 2,
+                      )
+                    ),
+                    labelText: 'Tasks'
+                  ),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+              ),
+            ),
+          ],
+        ),
+        ElevatedButton(
+          onPressed: () {
+            ClockController.clockOut(context);
+          },
+          child: Container(
+            // This is how to get the maximum width of the display.
+            width: MediaQuery.of(context).size.width - 150,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Clock Out", style: TextStyle(fontSize: 40)),
+              ),
             )
-          ),
+          )
         ),
       ],
     );

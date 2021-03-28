@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage>
             ),
             backgroundColor: Colors.blue[200],
             content: Container(
-              height: 300, 
+              height: MediaQuery.of(context).size.height - 500, 
               child: ClockOutForm()
             )
           ),
