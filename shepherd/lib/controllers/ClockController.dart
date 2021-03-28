@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shepherd/connectivity/ConnectionChecker.dart';
 import 'package:shepherd/domain_data/WorkData.dart';
 import 'package:http/http.dart' as http;
 import 'package:shepherd/location/LocationFinder.dart';
@@ -9,7 +10,9 @@ class ClockController
 {
   static Future<void> clockIn(BuildContext context) async
   {
+
     final globalState = Provider.of<GlobalState>(context, listen:false);
+    ConnectionChecker connection = new ConnectionChecker();
     if (globalState.clientIDController.text.characters.length != 6 ||
         globalState.clockInPassController.text.characters.length != 6)
     {
@@ -44,21 +47,34 @@ class ClockController
       longitude: locFinder.locationData.longitude
     );
 
+    bool connected = await connection.isConnected();
+
+
     var url = Uri.parse('https://path/to/backend'); 
     var response;
     bool data_authenticated = true;
-    try 
+
+    if (connected)
     {
-      response = await http.post(url, body: workData.stringStringMap()); 
+      try 
+      {
+        response = await http.post(url, body: workData.stringStringMap()); 
+      }
+      catch (any)
+      {
+        data_authenticated = false;
+      }
+
+      data_authenticated = data_authenticated && response.body == "AUTHENTICATED"; // placeholder
+
     }
-    catch (any)
+    else 
     {
       data_authenticated = false;
     }
 
-    data_authenticated = data_authenticated && response.body == "AUTHENTICATED"; // placeholder
 
-    if (data_authenticated)
+    if (data_authenticated && connected)
     {
       snackBar = SnackBar(
         content: Row(
@@ -137,16 +153,28 @@ class ClockController
     var url = Uri.parse('https://path/to/backend'); 
     var response;
     bool data_authenticated = true;
-    try 
+
+    ConnectionChecker connection = new ConnectionChecker();
+    bool connected = await connection.isConnected();
+
+    if (connected)
     {
-      response = await http.post(url, body: workData.stringStringMap()); 
+      try 
+      {
+        response = await http.post(url, body: workData.stringStringMap()); 
+      }
+      catch (any)
+      {
+        data_authenticated = false;
+      }
+      
+      data_authenticated = data_authenticated && response.body == "AUTHENTICATED"; // placeholder
     }
-    catch (any)
+    else 
     {
       data_authenticated = false;
     }
 
-    data_authenticated = data_authenticated && response.body == "AUTHENTICATED"; // placeholder
 
     if (data_authenticated)
     {
