@@ -3,12 +3,10 @@ import 'package:sqflite/sqflite.dart';
 
 import 'WorkData.dart';
 
-class LocalDBContainer
-{
+class LocalDBContainer {
   Database localdb;
 
-  Future<void> init() async
-  {
+  Future<void> init() async {
     localdb = await openDatabase(
       join(await getDatabasesPath(), 'local_database.db'),
       onCreate: (db, version) async {
@@ -23,14 +21,12 @@ class LocalDBContainer
       version: 1,
     );
   }
-  
-  Future<void> insert(WorkData workData) async 
-  {
+
+  Future<void> insert(WorkData workData) async {
     await localdb.insert(
       'workData',
-      workData.toMap(),
+      workData.stringObjMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
-
 }
