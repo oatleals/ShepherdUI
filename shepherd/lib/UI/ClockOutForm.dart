@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shepherd/controllers/ClockController.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 class ClockOutForm extends StatefulWidget 
@@ -14,100 +15,105 @@ class _ClockOutFormState extends State<ClockOutForm>
   @override
   Widget build(BuildContext context) 
   {
-    GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
+    GlobalState globalState = Provider.of<GlobalState>(context);
     String clientID = globalState.clientId;
     int numTasks = globalState.numTasks;
 
+    var top2 = 10;
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Row(
-            children: [
-              Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
-              Text("$clientID", 
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.blue
-                )
-              ),
-            ],
-          ),
-        ),
-        Row(
+        Column(
           children: [
-            Container(
-              width: 215,
-              child: TextField(
-                style: TextStyle(
-                  fontSize:20,
-                  color: Colors.blue
-                ),
-                keyboardType: TextInputType.number,
-                obscureText: false,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white
-                    )
+            Stack(
+              alignment: AlignmentDirectional.topEnd,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
+                      Text("$clientID", 
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue
+                        )
+                      ),
+                    ],
                   ),
-                  labelText: 'Password'
+                ),
+                IconButton(
+                  iconSize: 30,
+                  color: Colors.white,
+                  onPressed:() { Navigator.of(context).pop(); }, 
+                  icon: Icon(Icons.close)
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Container(
+                  width: 175,
+                  child: TextField(
+                    style: TextStyle(
+                      fontSize:20,
+                      color: Colors.blue
+                    ),
+                    controller: globalState.clockOutPassController,
+                    keyboardType: TextInputType.number,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white,
+                          width: 2
+                        )
+                      ),
+                      labelText: 'Password'
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
+                  onPressed: (){}, // OpenScanner()
+                )
+              ],
+            ),
+            Container(
+              height: 150,
+              child: SingleChildScrollView(
+                child: TextField(
+                  decoration:InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                        width: 2,
+                      )
+                    ),
+                    labelText: 'Tasks'
+                  ),
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
                 ),
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
-              onPressed: (){}, // OpenScanner()
-            )
           ],
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text("Tasks: ", style: TextStyle(fontSize: 20, color: Colors.white)),
-            IconButton(
-              icon: Icon(Icons.create_rounded, size: 35, color: Colors.blue,), 
-              onPressed: (){
-                recursiveShowDialog(numTasks);
-              } 
+        ElevatedButton(
+          onPressed: () {
+            ClockController.clockOut(context);
+          },
+          child: Container(
+            // This is how to get the maximum width of the display.
+            width: MediaQuery.of(context).size.width - 150,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Clock Out", style: TextStyle(fontSize: 40)),
+              ),
             )
-          ],
-        ),
-        
-        Padding(
-          padding: const EdgeInsets.only(top:30),
-          child: ElevatedButton(
-            onPressed: () {
-              final snackBar = SnackBar(
-                content: Row(
-                  children: [
-                    Text('Clock Out: ', 
-                      style: TextStyle(color: Colors.white, fontSize:24),),
-                    Text('SUCCESS',
-                      style: TextStyle(color: Colors.green, fontSize: 24)),
-                  ],
-                ));
-
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-              globalState.clockOut();
-              Navigator.of(context).pop();
-            },
-            child: Container(
-              // This is how to get the maximum width of the display.
-              width: MediaQuery.of(context).size.width - 150,
-              child: Center(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Clock Out", style: TextStyle(fontSize: 40)),
-                  ),
-                )
-              )
-            )
-          ),
+          )
         ),
       ],
     );
@@ -123,7 +129,7 @@ class _ClockOutFormState extends State<ClockOutForm>
             return AlertDialog(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                side: BorderSide(color: Colors.white)
+                side: BorderSide(color: Colors.white, width: 3)
               ),
               backgroundColor: Colors.blue[200],
               content: Container(
@@ -134,7 +140,7 @@ class _ClockOutFormState extends State<ClockOutForm>
                       
                       for (int i = 0; i < numTasks; i++)
                       {
-                        globalState.taskController.add(
+                        globalState.taskControllers.add(
                           new TextEditingController());
 
                         var icon;
@@ -157,7 +163,7 @@ class _ClockOutFormState extends State<ClockOutForm>
                             icon: Icon(Icons.remove, color: Colors.blue),
                             onPressed: () { 
                               this.setState(() {
-                                globalState.taskController.removeAt(i);
+                                globalState.taskControllers.removeAt(i);
                                 globalState.numTasks--;
                                 Navigator.of(context).pop();
                                 recursiveShowDialog(globalState.numTasks);
@@ -166,8 +172,8 @@ class _ClockOutFormState extends State<ClockOutForm>
                           );
                         } 
                                                 
-                        var textField = Container(width: 200, child: TextField(
-                          controller: globalState.taskController[i],
+                        var textField = Container(width: 175, child: TextField(
+                          controller: globalState.taskControllers[i],
                           style: TextStyle(
                             fontSize:16,
                             color: Colors.blue
@@ -175,18 +181,22 @@ class _ClockOutFormState extends State<ClockOutForm>
                           decoration: InputDecoration(
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                                color: Colors.white
+                                color: Colors.white,
+                                width: 2
                               )
                             )
                           ),
                           obscureText: false));
 
-                        var row = new Row(children: [textField, icon]);
+                        var row = new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [textField, icon]);
                         
                         rows.add(row);
                       }
 
-                      return Column(children: rows);
+                      return Column(
+                        children: rows);
                     }
                   )
                 ),
