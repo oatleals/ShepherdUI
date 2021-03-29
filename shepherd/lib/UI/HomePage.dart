@@ -18,68 +18,44 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) 
   {
-    // Grab data from GlobalState.
-    bool clockedOut = 
-      Provider.of<GlobalState>(context, listen: false)
-        .clockButtonRoute == '/ClockIn';
-    
-    String latitude = 
-      Provider.of<GlobalState>(context)
-        .locationFinder.locationData.latitude.toString();
-    
-    String longitude = 
-      Provider.of<GlobalState>(context)
-        .locationFinder.locationData.longitude.toString();
+    var globalState = Provider.of<GlobalState>(context);
+    String userId = globalState.userId;
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Text("User ID: 123456   ", style: TextStyle(fontSize: 15)),
-            Text("GPS:  ", style: TextStyle(fontSize: 15)),
-            Text(
-              latitude,
-              style: TextStyle(
-                fontSize: 13
-              )
-            ),
-            Text(", ",
-              style: TextStyle(
-                fontSize: 13
-              )
-            ),
-            Text(
-              longitude,
-              style: TextStyle(
-                fontSize: 13
-              )
-            ),
-          ],
+        title: Padding(
+          padding: const EdgeInsets.only(left:8.0, right:8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Joe Smith  ", style: TextStyle(fontSize: 15)),
+              Text("ID: $userId  ", style: TextStyle(fontSize: 15)),
+              
+            ],
+          ),
         ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Consumer<GlobalState>(
-              builder: (context, globalState, child) => 
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: BeveledRectangleBorder(),
-                      primary: Colors.blue[300],
-                    ),
-                    onPressed: () { 
-                      if (clockedOut)
-                        showClockInDialog(context); 
-                      else 
-                        showClockOutDialog(context);
-                    }, 
-                    child: Container(
-                      child: Center(child: globalState.clockButtonText)
-                    )
-                  ),
+            Expanded(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: BeveledRectangleBorder(),
+                  primary: Colors.blue[300],
                 ),
+                onPressed: () 
+                {                       
+                  if (globalState.isClockedIn)
+                    showClockOutDialog(context);
+                  else 
+                    showClockInDialog(context); 
+                }, 
+                child: Container(
+                  child: Center(child: globalState.clockButtonText)
+                )
+              ),
             ),
             Expanded(
               child: ElevatedButton(
@@ -106,19 +82,22 @@ class _HomePageState extends State<HomePage>
     showDialog<AlertDialog>(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.white)
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          body: AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+              side: BorderSide(color: Colors.white, width: 3)
+            ),
+            backgroundColor: Colors.blue[200],
+            content: Container(
+              height: 300, 
+              child: ClockInForm()
+            )
           ),
-          backgroundColor: Colors.blue[200],
-          content: Container(
-            height: 300, 
-            child: ClockInForm()
-          )
         );
       }
-    );
+    ); 
   }
   
   void showClockOutDialog(BuildContext context) 
@@ -126,19 +105,22 @@ class _HomePageState extends State<HomePage>
     showDialog<AlertDialog>(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-            side: BorderSide(color: Colors.white)
+        return Scaffold(
+          backgroundColor: Colors.transparent,
+          body: AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+              side: BorderSide(color: Colors.white, width: 3)
+            ),
+            backgroundColor: Colors.blue[200],
+            content: Container(
+              height: MediaQuery.of(context).size.height - 500, 
+              child: ClockOutForm()
+            )
           ),
-          backgroundColor: Colors.blue[200],
-          content: Container(
-            height: 300, 
-            child: ClockOutForm()
-          )
         );
       }
-    );
+    ); 
   }
 
 }
