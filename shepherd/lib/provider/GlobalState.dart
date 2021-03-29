@@ -48,6 +48,12 @@ class GlobalState extends ChangeNotifier
     isClockedIn = false;
     clockButtonRoute = '/ClockIn';
     clockButtonText = Text("Clock In", style: TextStyle(fontSize: 50));
+
+    clientIDController.clear();
+    clockInPassController.clear();
+    clockOutPassController.clear();
+    // TODO: clear task controllers
+    
     notifyListeners();
   }
 

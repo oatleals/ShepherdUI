@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:shepherd/connectivity/ConnectionChecker.dart';
 import 'package:shepherd/domain_data/WorkData.dart';
@@ -10,9 +11,9 @@ class ClockController
 {
   static Future<void> clockIn(BuildContext context) async
   {
-
     final globalState = Provider.of<GlobalState>(context, listen:false);
     ConnectionChecker connection = new ConnectionChecker();
+
     if (globalState.clientIDController.text.characters.length != 6 ||
         globalState.clockInPassController.text.characters.length != 6)
     {
@@ -51,27 +52,31 @@ class ClockController
 
 
     var url = Uri.parse('https://path/to/backend'); 
-    var response;
     bool data_authenticated = true;
 
     if (connected)
     {
+      Response auth;
+
       try 
       {
-        response = await http.post(url, body: workData.stringStringMap()); 
+        var client = http.Client();
+        await client.post(url, body: workData.stringStringMap()); 
+        auth = await client.get(url);
+        client.close();
       }
       catch (any)
       {
         data_authenticated = false;
       }
 
-      data_authenticated = data_authenticated && response.body == "AUTHENTICATED"; // placeholder
+      data_authenticated = data_authenticated && auth.body == "AUTHENTICATED"; // placeholder
 
     }
     else 
     {
       data_authenticated = false;
-    }
+      }
 
 
     if (data_authenticated && connected)
@@ -80,9 +85,9 @@ class ClockController
         content: Row(
           children: [
             Text('Clock In: ',
-              style: TextStyle(color: Colors.white, fontSize: 24)),
+              style: TextStyle(color: Colors.white, fontSize: 20)),
             Text('SUCCESS',
-              style: TextStyle(color: Colors.green, fontSize: 24)),
+              style: TextStyle(color: Colors.green, fontSize: 20)),
           ],
         )
       );
@@ -95,9 +100,9 @@ class ClockController
         content: Row(
           children: [
             Text('Clock In: ',
-              style: TextStyle(color: Colors.white, fontSize: 24)),
-            Text('NOT VERIFIED',
-              style: TextStyle(color: Colors.yellow, fontSize: 24)),
+              style: TextStyle(color: Colors.white, fontSize: 20)),
+            Text('SUCCESS (UNVERIFIED)',
+              style: TextStyle(color: Colors.yellow, fontSize: 20)),
           ],
         )
       );
@@ -151,7 +156,6 @@ class ClockController
     );
 
     var url = Uri.parse('https://path/to/backend'); 
-    var response;
     bool data_authenticated = true;
 
     ConnectionChecker connection = new ConnectionChecker();
@@ -159,16 +163,21 @@ class ClockController
 
     if (connected)
     {
+      Response auth;
+
       try 
       {
-        response = await http.post(url, body: workData.stringStringMap()); 
+        var client = http.Client();
+        await client.post(url, body: workData.stringStringMap()); 
+        auth = await client.get(url);
+        client.close();
       }
       catch (any)
       {
         data_authenticated = false;
       }
       
-      data_authenticated = data_authenticated && response.body == "AUTHENTICATED"; // placeholder
+      data_authenticated = data_authenticated && auth.body == "AUTHENTICATED"; // placeholder
     }
     else 
     {
@@ -182,9 +191,9 @@ class ClockController
         content: Row(
           children: [
             Text('Clock Out: ',
-              style: TextStyle(color: Colors.white, fontSize: 24)),
+              style: TextStyle(color: Colors.white, fontSize: 20)),
             Text('SUCCESS',
-              style: TextStyle(color: Colors.green, fontSize: 24)),
+              style: TextStyle(color: Colors.green, fontSize: 20)),
           ],
         )
       );
@@ -198,9 +207,9 @@ class ClockController
         content: Row(
           children: [
             Text('Clock Out: ',
-              style: TextStyle(color: Colors.white, fontSize: 24)),
-            Text('NOT VERIFIED',
-              style: TextStyle(color: Colors.yellow, fontSize: 24)),
+              style: TextStyle(color: Colors.white, fontSize: 20)),
+            Text('SUCCESS (UNVERIFIED)',
+              style: TextStyle(color: Colors.yellow, fontSize: 20)),
           ],
         )
       );
