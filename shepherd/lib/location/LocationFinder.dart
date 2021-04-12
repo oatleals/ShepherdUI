@@ -1,16 +1,14 @@
 import 'package:location/location.dart';
 
-class LocationFinder 
-{
+class LocationFinder {
   Location location;
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
 
   // this is the object that holds latitude, longitude, and time.
-  LocationData locationData; 
+  LocationData locationData;
 
-  LocationFinder()
-  {
+  LocationFinder() {
     location = new Location();
   }
 
@@ -35,3 +33,4 @@ class LocationFinder
     locationData = await location.getLocation();  
   } 
 }
+

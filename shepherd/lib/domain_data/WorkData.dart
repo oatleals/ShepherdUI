@@ -1,5 +1,4 @@
-class WorkData
-{
+class WorkData {
   bool isClockIn;
   bool isAuthenticated;
 
@@ -15,20 +14,27 @@ class WorkData
   List<String> tasks;
 
   WorkData(
-    {this.isClockIn, this.userId, this.clientId, this.clientPass, 
-    this.time, this.latitude, this.longitude, this.tasks, this.isAuthenticated});
+      {this.isClockIn,
+      this.userId,
+      this.clientId,
+      this.clientPass,
+      this.time,
+      this.latitude,
+      this.longitude,
+      this.tasks,
+      this.isAuthenticated});
 
   Map<String, dynamic> stringObjMap() {
     return {
-      'isClockIn' : isClockIn,
-      'userId' : userId,
-      'clientId' : clientId,
-      'clientPass' : clientPass,
-      'time' : time,
-      'latitude' : latitude,
-      'longitude' : longitude,
-      'tasks' : tasks,
-      'isAuthenticated' : isAuthenticated
+      'isClockIn': isClockIn,
+      'userId': userId,
+      'clientId': clientId,
+      'clientPass': clientPass,
+      'time': time,
+      'latitude': latitude,
+      'longitude': longitude,
+      'tasks': tasks,
+      'isAuthenticated': isAuthenticated
     };
   }
 

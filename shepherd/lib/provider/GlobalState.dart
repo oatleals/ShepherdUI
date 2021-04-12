@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shepherd/domain_data/LocalDBContainer.dart';
 
-class GlobalState extends ChangeNotifier
-{
+class GlobalState extends ChangeNotifier {
   // Domain data
   bool isClockedIn;
   String clientId;
@@ -19,20 +18,18 @@ class GlobalState extends ChangeNotifier
   final clientIDController = TextEditingController();
   final clockInPassController = TextEditingController();
   final clockOutPassController = TextEditingController();
-  
 
-  GlobalState(this.localdbContainer)
-  {
+  GlobalState(this.localdbContainer) {
     userId = '000000';
 
     isClockedIn = false;
 
-    // Query database, grab the entry with the newest timestamp, check its 
-    // isClockedIn value, and set GlobalState's isClockedIn accordingly. 
+    // Query database, grab the entry with the newest timestamp, check its
+    // isClockedIn value, and set GlobalState's isClockedIn accordingly.
   }
 
-  // These notifying functions should only be responsbile for UI changes.  We 
-  // will have a separate controller with clockIn() and clockOut() that 
+  // These notifying functions should only be responsbile for UI changes.  We
+  // will have a separate controller with clockIn() and clockOut() that
   // perform business logic.
   void clockIn({String clientId})
   {
@@ -57,10 +54,8 @@ class GlobalState extends ChangeNotifier
     notifyListeners();
   }
 
-  void newTask() 
-  {
+  void newTask() {
     numTasks++;
     notifyListeners();
   }
-
 }
