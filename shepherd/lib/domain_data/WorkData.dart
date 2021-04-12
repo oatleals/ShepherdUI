@@ -40,15 +40,15 @@ class WorkData {
 
   Map<String, String> stringStringMap() {
     return {
-      'isClockIn': isClockIn.toString(),
-      'userId': userId.toString(),
-      'clientId': clientId.toString(),
-      'clientPass': clientPass.toString(),
-      'time': time.toString(),
-      'latitude': latitude.toString(),
-      'longitude': longitude.toString(),
-      'tasks': tasks.toString(),
-      'isAuthenticated': isAuthenticated.toString()
+      'isClockIn' : isClockIn.toString(),
+      'userId' : userId.toString(),
+      'clientId' : clientId.toString(),
+      'clientPass' : clientPass.toString(),
+      'time' : time.toString(),
+      'latitude' : latitude.toString(),
+      'longitude' : longitude.toString(),
+      'tasks' : tasks.toString(),
+      'isAuthenticated' : isAuthenticated.toString()
     };
   }
 }

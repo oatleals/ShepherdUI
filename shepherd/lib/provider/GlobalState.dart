@@ -31,7 +31,8 @@ class GlobalState extends ChangeNotifier {
   // These notifying functions should only be responsbile for UI changes.  We
   // will have a separate controller with clockIn() and clockOut() that
   // perform business logic.
-  void clockIn({String clientId}) {
+  void clockIn({String clientId})
+  {
     isClockedIn = true;
     this.clientId = clientId;
     clockButtonRoute = '/ClockOut';
@@ -39,10 +40,17 @@ class GlobalState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clockOut() {
+  void clockOut()
+  {
     isClockedIn = false;
     clockButtonRoute = '/ClockIn';
     clockButtonText = Text("Clock In", style: TextStyle(fontSize: 50));
+
+    clientIDController.clear();
+    clockInPassController.clear();
+    clockOutPassController.clear();
+    // TODO: clear task controllers
+    
     notifyListeners();
   }
 

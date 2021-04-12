@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shepherd/domain_data/LocalDBContainer.dart';
-import 'package:shepherd/domain_data/WorkData.dart';
+import 'package:shepherd/controllers/ClockController.dart';
 import 'package:shepherd/provider/GlobalState.dart';
 
 
@@ -21,52 +20,65 @@ class _ClockInFormState extends State<ClockInForm>
     // connect it to the TextField where the user enters the Client ID.  This 
     // way, we can can reference the controller outside of this scope and get 
     // the Client ID value anywhere in the project.
-    GlobalState globalState = Provider.of<GlobalState>(context, listen:false);
-    TextEditingController textFieldController = globalState.clientIDController;
-    LocalDBContainer localdbContainer = globalState.localdbContainer;
+    GlobalState globalState = Provider.of<GlobalState>(context);
+    TextEditingController clientIdText = globalState.clientIDController;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: TextField(
-            style: TextStyle(
-              fontSize:35,
-              color: Colors.blue
-            ),
-            controller: textFieldController,
-            keyboardType: TextInputType.number,
-            obscureText: false,
-            decoration: InputDecoration(
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(
-                  color: Colors.white,
+        Stack(
+          alignment: AlignmentDirectional.topEnd,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: TextField(
+                style: TextStyle(
+                  fontSize:35,
+                  color: Colors.blue
                 ),
-              ),              
-              labelText: 'Client ID'
+                controller: clientIdText,
+                keyboardType: TextInputType.number,
+                obscureText: false,
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                      width: 2
+                    ),
+                  ),              
+                  labelText: 'Client ID'
+                ),
+              ),
             ),
-          ),
+            IconButton(
+              iconSize: 30,
+              color: Colors.white,
+              onPressed:() { Navigator.of(context).pop(); }, 
+              icon: Icon(Icons.close)
+            ),
+          ],
         ),
         Padding(
           padding: const EdgeInsets.only(top:8.0, bottom:8.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                width: 215,
+                width: 175,
                 child: TextField(
                   style: TextStyle(
                     fontSize:35,
                     color: Colors.blue
                   ),
-                  controller: globalState.clientPassController,
+                  controller: globalState.clockInPassController,
                   keyboardType: TextInputType.number,
                   obscureText: false,
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.white,
+                        width: 2
                       ),
                     ),
                     labelText: 'Password'
@@ -74,41 +86,18 @@ class _ClockInFormState extends State<ClockInForm>
                 ),
               ),
               IconButton(
-                icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
+                icon: Icon(Icons.camera_alt, size: 30, color: Colors.blue),
                 onPressed: (){}, // For scanning password.
               )
             ],
           ),
         ),
         ElevatedButton(
-          onPressed: () 
+          onPressed: () async
           { 
-            final snackBar = SnackBar(
-              content: Row(
-                children: [
-                  Text('Clock In: ',
-                    style: TextStyle(color: Colors.white, fontSize: 24)),
-                  Text('SUCCESS',
-                    style: TextStyle(color: Colors.green, fontSize: 24)),
-                ],
-              ));
-
-            WorkData workData = new WorkData(
-              isClockIn: true,
-              userId: 123456,
-              clientId: int.parse(globalState.clientIDController.text),
-              clientPass: int.parse(globalState.clientPassController.text),
-              time: globalState.locationFinder.locationData.time,
-              latitude: globalState.locationFinder.locationData.latitude,
-              longitude: globalState.locationFinder.locationData.longitude
-            );
-
-            globalState.clockIn(clientId: textFieldController.text);
-            localdbContainer.insert(workData);
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            Navigator.of(context).pop();
-
+            ClockController.clockIn(context);
           },  
+
           child: Container(
             // This is how to get the maximum width of the display.
             width: MediaQuery.of(context).size.width - 150,
