@@ -239,7 +239,7 @@ class ClockController
     Navigator.of(context).pop();
     Navigator.of(context).pop();
     Navigator.of(context).pushReplacementNamed('/Home');
-  
+
   }
 
 

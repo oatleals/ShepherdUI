@@ -25,6 +25,7 @@ class _ClockOutFormState extends State<ClockOutForm>
       {
         if (snapshot.connectionState == ConnectionState.done)
         {
+          var taskEnabled = [false,false,false,false,false];
 
           return Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,23 +88,33 @@ class _ClockOutFormState extends State<ClockOutForm>
                     ],
                   ),
                   Container(
-                    height: 150,
-                    child: SingleChildScrollView(
-                      child: TextField(
-                        decoration:InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 2,
-                            )
-                          ),
-                          labelText: 'Tasks'
-                        ),
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                      ),
-                    ),
+                    height:250,
+                    width:200,
+                    child: ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index)
+                      {
+                        return StatefulBuilder(
+                          builder: (context, setState)
+                          {
+                            return CheckboxListTile(
+                              checkColor: Colors.white,
+                              title: Text('task',
+                                style: TextStyle(color: Colors.white),),
+                              value: taskEnabled[index], 
+                              onChanged: (bool val) async
+                              {            
+                                setState(() {
+                                  taskEnabled[index] = val;
+                                });              
+                              }
+                            );
+                          }
+                        );
+                      })
+                        
                   ),
+                  
                 ],
               ),
               ElevatedButton(
