@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/controllers/ClockController.dart';
-import 'package:shepherd/provider/GlobalState.dart';
 
 
 class ClockInForm extends StatefulWidget 
@@ -16,12 +15,8 @@ class _ClockInFormState extends State<ClockInForm>
   @override
   Widget build(BuildContext context) 
   {
-    // Grab reference of clientIdController from GlobalState so that we can
-    // connect it to the TextField where the user enters the Client ID.  This 
-    // way, we can can reference the controller outside of this scope and get 
-    // the Client ID value anywhere in the project.
-    GlobalState globalState = Provider.of<GlobalState>(context);
-    TextEditingController clientIdText = globalState.clientIDController;
+    var clientIdTextController = new TextEditingController();
+    var tokenTextController = new TextEditingController();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -37,7 +32,7 @@ class _ClockInFormState extends State<ClockInForm>
                   fontSize:35,
                   color: Colors.blue
                 ),
-                controller: clientIdText,
+                controller: clientIdTextController,
                 keyboardType: TextInputType.number,
                 obscureText: false,
                 decoration: InputDecoration(
@@ -71,7 +66,7 @@ class _ClockInFormState extends State<ClockInForm>
                     fontSize:35,
                     color: Colors.blue
                   ),
-                  controller: globalState.clockInPassController,
+                  controller: tokenTextController,
                   keyboardType: TextInputType.number,
                   obscureText: false,
                   decoration: InputDecoration(
@@ -81,13 +76,13 @@ class _ClockInFormState extends State<ClockInForm>
                         width: 2
                       ),
                     ),
-                    labelText: 'Password'
+                    labelText: 'Token'
                   ),
                 ),
               ),
               IconButton(
                 icon: Icon(Icons.camera_alt, size: 30, color: Colors.blue),
-                onPressed: (){}, // For scanning password.
+                onPressed: (){}, // For scanning token.
               )
             ],
           ),
@@ -95,7 +90,14 @@ class _ClockInFormState extends State<ClockInForm>
         ElevatedButton(
           onPressed: () async
           { 
-            ClockController.clockIn(context);
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setInt('clientId', int.parse(clientIdTextController.text));
+            prefs.setInt('token', int.parse(tokenTextController.text));
+            await ClockController.clockIn(
+              context: context,
+              clientId: int.parse(clientIdTextController.text),
+              token: int.parse(tokenTextController.text)
+            );
           },  
 
           child: Container(

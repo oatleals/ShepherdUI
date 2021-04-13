@@ -10,14 +10,13 @@ class LocalDBContainer
   Future<void> init() async
   {
     localdb = await openDatabase(
-      join(await getDatabasesPath(), 'local_database.db'),
+      join(await getDatabasesPath(), 'workdata.db'),
       onCreate: (db, version) async 
       {
-        await db.execute("DROP TABLE IF EXISTS workData");
         return db.execute(
           '''CREATE TABLE workData(
               isClockIn INTEGER, userId INTEGER, clientId INTEGER, 
-              clientPass INTEGER, time REAL, latitude REAL, longitude REAL, 
+              token INTEGER, time REAL, latitude REAL, longitude REAL, 
               tasks TEXT, isAuthenticated INTEGER)''');
       },
       version: 1,

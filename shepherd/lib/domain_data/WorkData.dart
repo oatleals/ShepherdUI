@@ -1,12 +1,12 @@
 class WorkData
 {
-  bool isClockIn;
-  bool isAuthenticated;
+  int isClockIn;
+  int isAuthenticated;
 
   int userId;
 
   int clientId;
-  int clientPass;
+  int token;
 
   double time;
   double latitude;
@@ -15,7 +15,7 @@ class WorkData
   List<String> tasks;
 
   WorkData(
-    {this.isClockIn, this.userId, this.clientId, this.clientPass, 
+    {this.isClockIn, this.userId, this.clientId, this.token, 
     this.time, this.latitude, this.longitude, this.tasks, this.isAuthenticated});
 
   Map<String, dynamic> stringObjMap() {
@@ -23,7 +23,7 @@ class WorkData
       'isClockIn' : isClockIn,
       'userId' : userId,
       'clientId' : clientId,
-      'clientPass' : clientPass,
+      'token' : token,
       'time' : time,
       'latitude' : latitude,
       'longitude' : longitude,
@@ -37,7 +37,7 @@ class WorkData
       'isClockIn' : isClockIn.toString(),
       'userId' : userId.toString(),
       'clientId' : clientId.toString(),
-      'clientPass' : clientPass.toString(),
+      'token' : token.toString(),
       'time' : time.toString(),
       'latitude' : latitude.toString(),
       'longitude' : longitude.toString(),
