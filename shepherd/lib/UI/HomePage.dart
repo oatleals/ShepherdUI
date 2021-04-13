@@ -30,13 +30,25 @@ class _HomePageState extends State<HomePage>
             appBar: AppBar(
               title: Padding(
                 padding: const EdgeInsets.only(left:8.0, right:8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Joe Smith  ", style: TextStyle(fontSize: 15)),
-                    Text("ID: $userId  ", style: TextStyle(fontSize: 15)),
-                  ],
-                ),
+                child: snapshot.data.getBool('isClockedIn') 
+                  ? Row(
+                    children: [ 
+                      Text('Forgot to clock out?'), 
+                      IconButton(
+                        onPressed: () {
+                          snapshot.data.setBool('isClockedIn', false);
+                          Navigator.of(context).pushReplacementNamed('/Home');
+                        },
+                        icon: Icon(Icons.assignment_return_outlined))
+                    ]
+                  )
+                  : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Joe Smith  ", style: TextStyle(fontSize: 15)),
+                      Text("ID: $userId  ", style: TextStyle(fontSize: 15)),
+                    ],
+                  )
               ),
             ),
             body: Center(
