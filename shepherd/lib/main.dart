@@ -7,35 +7,28 @@ import 'package:shepherd/provider/GlobalState.dart';
 import 'UI/HomePage.dart';
 import 'UI/ClockInForm.dart';
 import 'UI/ClockOutForm.dart';
+import 'UI/LoginPage.dart';
+import 'UI/LoginPage.dart';
 
-
-main()
-{
+main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   LocalDBContainer localdb = new LocalDBContainer();
   localdb.init();
-  
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => GlobalState(localdb),
-      child: MyApp()
-    )
-  );
 
+  runApp(ChangeNotifierProvider(
+      create: (context) => GlobalState(localdb), child: MyApp()));
 }
 
-class MyApp extends StatelessWidget 
-{
+class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) 
-  {
+  Widget build(BuildContext context) {
     return MaterialApp(
-      routes: 
-      {
+      routes: {
         '/Home': (context) => HomePage(),
         '/ClockIn': (context) => ClockInForm(),
         '/ClockOut': (context) => ClockOutForm(),
+        '/Login': (context) => LoginPage(),
       },
       title: 'Shepherd EVV',
       theme: ThemeData(
@@ -43,8 +36,7 @@ class MyApp extends StatelessWidget
         accentColor: Colors.white,
         hintColor: Colors.white,
       ),
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
-  
 }
