@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shepherd/domain_data/LocalDBContainer.dart';
-
-import 'package:shepherd/provider/GlobalState.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'UI/HomePage.dart';
-import 'UI/ClockInForm.dart';
-import 'UI/ClockOutForm.dart';
-import 'UI/LoginPage.dart';
 import 'UI/LoginPage.dart';
 
-main() {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  LocalDBContainer localdb = new LocalDBContainer();
-  localdb.init();
+  await initializeSharedPrefs();
 
-  runApp(ChangeNotifierProvider(
-      create: (context) => GlobalState(localdb), child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -26,9 +17,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/Home': (context) => HomePage(),
-        '/ClockIn': (context) => ClockInForm(),
-        '/ClockOut': (context) => ClockOutForm(),
-        '/Login': (context) => LoginPage(),
       },
       title: 'Shepherd EVV',
       theme: ThemeData(
@@ -38,5 +26,14 @@ class MyApp extends StatelessWidget {
       ),
       home: LoginPage(),
     );
+  }
+}
+
+Future<void> initializeSharedPrefs() async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setInt('userId', 1);
+
+  if (prefs.getBool('isClockedIn') == null) {
+    prefs.setBool('isClockedIn', false);
   }
 }

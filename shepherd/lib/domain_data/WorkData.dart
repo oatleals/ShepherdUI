@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 class WorkData {
   bool isClockIn;
   bool isAuthenticated;
+=======
+class WorkData
+{
+  int isClockIn;
+  int isAuthenticated;
+>>>>>>> 1e7517a633a9386cfbc8b90495c71d5651d41da2
 
   int userId;
 
   int clientId;
-  int clientPass;
+  int token;
 
   double time;
   double latitude;
@@ -14,6 +21,7 @@ class WorkData {
   List<String> tasks;
 
   WorkData(
+<<<<<<< HEAD
       {this.isClockIn,
       this.userId,
       this.clientId,
@@ -35,6 +43,22 @@ class WorkData {
       'longitude': longitude,
       'tasks': tasks,
       'isAuthenticated': isAuthenticated
+=======
+    {this.isClockIn, this.userId, this.clientId, this.token, 
+    this.time, this.latitude, this.longitude, this.tasks, this.isAuthenticated});
+
+  Map<String, dynamic> stringObjMap() {
+    return {
+      'isClockIn' : isClockIn,
+      'userId' : userId,
+      'clientId' : clientId,
+      'token' : token,
+      'time' : time,
+      'latitude' : latitude,
+      'longitude' : longitude,
+      'tasks' : tasks,
+      'isAuthenticated' : isAuthenticated
+>>>>>>> 1e7517a633a9386cfbc8b90495c71d5651d41da2
     };
   }
 
@@ -43,7 +67,7 @@ class WorkData {
       'isClockIn' : isClockIn.toString(),
       'userId' : userId.toString(),
       'clientId' : clientId.toString(),
-      'clientPass' : clientPass.toString(),
+      'token' : token.toString(),
       'time' : time.toString(),
       'latitude' : latitude.toString(),
       'longitude' : longitude.toString(),
