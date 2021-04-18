@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/connectivity/ConnectionChecker.dart';
+import 'package:shepherd/domain_data/LocalDBContainer.dart';
 import 'package:shepherd/domain_data/WorkData.dart';
 import 'package:http/http.dart' as http;
 import 'package:shepherd/location/LocationFinder.dart';
-import 'package:shepherd/provider/GlobalState.dart';
 
 class ClockController
 {
-  static Future<void> clockIn(BuildContext context) async
+  static Future<void> clockIn({
+    BuildContext context, 
+    int clientId, 
+    int token}) async
   {
-    final globalState = Provider.of<GlobalState>(context, listen:false);
+    final localDBContainer = new LocalDBContainer();
+    await localDBContainer.init();
+    final prefs = await SharedPreferences.getInstance();
+    final clientId = prefs.getInt('clientId').toString();
+    final token = prefs.getInt('token').toString();
+
     ConnectionChecker connection = new ConnectionChecker();
 
-    if (globalState.clientIDController.text.characters.length != 6 ||
-        globalState.clockInPassController.text.characters.length != 6)
+    if (clientId.length != 6 || token.length != 6)
     {
       final snackBar = SnackBar(
         content: Row(
@@ -36,13 +43,12 @@ class ClockController
 
     await showProgressIndicator(context);
 
-    SnackBar snackBar;
 
     WorkData workData = new WorkData(
-      isClockIn: true,
-      userId: int.parse(globalState.userId),
-      clientId: int.parse(globalState.clientIDController.text),
-      clientPass: int.parse(globalState.clockInPassController.text),
+      isClockIn: 1,
+      userId: prefs.getInt('userId'),
+      clientId: prefs.getInt('clientId'),
+      token: prefs.getInt('token'),
       time: locFinder.locationData.time,
       latitude: locFinder.locationData.latitude,
       longitude: locFinder.locationData.longitude
@@ -50,9 +56,10 @@ class ClockController
 
     bool connected = await connection.isConnected();
 
-
     var url = Uri.parse('https://path/to/backend'); 
     bool data_authenticated = true;
+
+    SnackBar snackBar;
 
     if (connected)
     {
@@ -76,7 +83,7 @@ class ClockController
     else 
     {
       data_authenticated = false;
-      }
+    }
 
 
     if (data_authenticated && connected)
@@ -110,18 +117,23 @@ class ClockController
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
-    globalState.clockIn(clientId: globalState.clientIDController.text);
-    globalState.localdbContainer.insert(workData);
+    prefs.setBool('isClockedIn', true);
+    localDBContainer.insert(workData);
       
     Navigator.of(context).pop();
     Navigator.of(context).pop();
+    Navigator.of(context).pushReplacementNamed('/Home');
 
   }
 
   static Future<void> clockOut(BuildContext context) async
   {
-    final globalState = Provider.of<GlobalState>(context, listen:false);
-    if (globalState.clockOutPassController.text.characters.length != 6)
+    final localDBContainer = new LocalDBContainer();
+    await localDBContainer.init();
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getInt('token').toString();
+
+    if (token.length != 6)
     {
       final snackBar = SnackBar(
         content: Row(
@@ -145,11 +157,11 @@ class ClockController
     SnackBar snackBar;
 
     WorkData workData = new WorkData(
-      isAuthenticated: false,
-      isClockIn: true,
-      userId: int.parse(globalState.userId),
-      clientId: int.parse(globalState.clientIDController.text),
-      clientPass: int.parse(globalState.clockInPassController.text),
+      isAuthenticated: 0,
+      isClockIn: 1,
+      userId: prefs.getInt('userId'),
+      clientId: prefs.getInt('clientId'),
+      token: prefs.getInt('token'),
       time: locFinder.locationData.time,
       latitude: locFinder.locationData.latitude,
       longitude: locFinder.locationData.longitude
@@ -198,7 +210,7 @@ class ClockController
         )
       );
 
-      workData.isAuthenticated = true;
+      workData.isAuthenticated = 1;
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
     else
@@ -217,13 +229,23 @@ class ClockController
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
-    globalState.clockOut();
-    globalState.localdbContainer.insert(workData);
-      
+    // Clear out prefs.  Do we need this?
+    prefs.setInt('clientId', 0);
+    prefs.setInt('token', 0);
+    
+    prefs.setBool('isClockedIn', false);
+    localDBContainer.insert(workData);
+  
     Navigator.of(context).pop();
     Navigator.of(context).pop();
+    Navigator.of(context).pushReplacementNamed('/Home');
 
   }
+
+
+
+
+
 
   // This is really bad.  
   // https://stackoverflow.com/questions/53836876/is-it-possible-to-disable-shadow-overlay-on-dialog

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/controllers/ClockController.dart';
-import 'package:shepherd/provider/GlobalState.dart';
 
 class ClockOutForm extends StatefulWidget 
 {
@@ -12,198 +11,166 @@ class ClockOutForm extends StatefulWidget
 }
 class _ClockOutFormState extends State<ClockOutForm> 
 {
+
   @override
   Widget build(BuildContext context) 
   {
-    GlobalState globalState = Provider.of<GlobalState>(context);
-    String clientID = globalState.clientId;
-    int numTasks = globalState.numTasks;
+    var tokenTextController = new TextEditingController();
+    final prefs = SharedPreferences.getInstance();
 
-    var top2 = 10;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Column(
-          children: [
-            Stack(
-              alignment: AlignmentDirectional.topEnd,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
+
+    return FutureBuilder(
+      future: prefs,
+      builder: (context, snapshot)
+      {
+        if (snapshot.connectionState == ConnectionState.done)
+        {
+          var taskEnabled = [false,false,false,false,false];
+
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Column(
+                children: [
+                  Stack(
+                    alignment: AlignmentDirectional.topEnd,
                     children: [
-                      Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
-                      Text("$clientID", 
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.blue
-                        )
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          children: [
+                            Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
+                            Text(snapshot.data.getInt('clientId').toString(), 
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.blue
+                              )
+                            ),
+                          ],
+                        ),
+                      ),
+                      IconButton(
+                        iconSize: 30,
+                        color: Colors.white,
+                        onPressed:() { Navigator.of(context).pop(); }, 
+                        icon: Icon(Icons.close)
                       ),
                     ],
                   ),
-                ),
-                IconButton(
-                  iconSize: 30,
-                  color: Colors.white,
-                  onPressed:() { Navigator.of(context).pop(); }, 
-                  icon: Icon(Icons.close)
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Container(
-                  width: 175,
-                  child: TextField(
-                    style: TextStyle(
-                      fontSize:20,
-                      color: Colors.blue
-                    ),
-                    controller: globalState.clockOutPassController,
-                    keyboardType: TextInputType.number,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                          width: 2
-                        )
-                      ),
-                      labelText: 'Password'
-                    ),
-                  ),
-                ),
-                IconButton(
-                  icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
-                  onPressed: (){}, // OpenScanner()
-                )
-              ],
-            ),
-            Container(
-              height: 150,
-              child: SingleChildScrollView(
-                child: TextField(
-                  decoration:InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                        width: 2,
-                      )
-                    ),
-                    labelText: 'Tasks'
-                  ),
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                ),
-              ),
-            ),
-          ],
-        ),
-        ElevatedButton(
-          onPressed: () {
-            ClockController.clockOut(context);
-          },
-          child: Container(
-            // This is how to get the maximum width of the display.
-            width: MediaQuery.of(context).size.width - 150,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Clock Out", style: TextStyle(fontSize: 40)),
-              ),
-            )
-          )
-        ),
-      ],
-    );
-  }
-
-  void recursiveShowDialog(int numTasks)
-  {
-    showDialog<AlertDialog>(
-      context: context,
-      builder: (context) {
-        return StatefulBuilder(
-          builder: (context, setState) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-                side: BorderSide(color: Colors.white, width: 3)
-              ),
-              backgroundColor: Colors.blue[200],
-              content: Container(
-                child: SingleChildScrollView(
-                  child: Consumer<GlobalState>(
-                    builder: (context, globalState, child) {
-                      List<Widget> rows = [];
-                      
-                      for (int i = 0; i < numTasks; i++)
-                      {
-                        globalState.taskControllers.add(
-                          new TextEditingController());
-
-                        var icon;
-                        if (i == numTasks -1)
-                        {
-                          icon = IconButton(
-                            icon: Icon(Icons.add, color: Colors.blue),
-                            onPressed: () { 
-                              this.setState(() {
-                                globalState.newTask();
-                                Navigator.of(context).pop();
-                                recursiveShowDialog(globalState.numTasks);
-                              });
-                            }
-                          );
-                        }
-                        else
-                        {
-                          icon = IconButton(
-                            icon: Icon(Icons.remove, color: Colors.blue),
-                            onPressed: () { 
-                              this.setState(() {
-                                globalState.taskControllers.removeAt(i);
-                                globalState.numTasks--;
-                                Navigator.of(context).pop();
-                                recursiveShowDialog(globalState.numTasks);
-                              });
-                            }
-                          );
-                        } 
-                                                
-                        var textField = Container(width: 175, child: TextField(
-                          controller: globalState.taskControllers[i],
+                  Row(
+                    children: [
+                      Container(
+                        width: 175,
+                        child: TextField(
                           style: TextStyle(
-                            fontSize:16,
+                            fontSize:20,
                             color: Colors.blue
                           ),
+                          controller: tokenTextController,
+                          keyboardType: TextInputType.number,
+                          obscureText: false,
                           decoration: InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.white,
                                 width: 2
                               )
-                            )
+                            ),
+                            labelText: 'Token'
                           ),
-                          obscureText: false));
-
-                        var row = new Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [textField, icon]);
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.camera_alt, size: 35, color: Colors.blue),
+                        onPressed: (){}, // OpenScanner()
+                      )
+                    ],
+                  ),
+                  Container(
+                    height:250,
+                    width:200,
+                    child: ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index)
+                      {
+                        return StatefulBuilder(
+                          builder: (context, setState)
+                          {
+                            return CheckboxListTile(
+                              checkColor: Colors.white,
+                              title: Text('task',
+                                style: TextStyle(color: Colors.white),),
+                              value: taskEnabled[index], 
+                              onChanged: (bool val) async
+                              {            
+                                setState(() {
+                                  taskEnabled[index] = val;
+                                });              
+                              }
+                            );
+                          }
+                        );
+                      })
                         
-                        rows.add(row);
-                      }
+                  ),
+                  
+                ],
+              ),
+              ElevatedButton(
+                onPressed: () async
+                {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setInt('token', int.parse(tokenTextController.text));
 
-                      return Column(
-                        children: rows);
-                    }
+                  ClockController.clockOut(context);
+                },
+                child: Container(
+                  // This is how to get the maximum width of the display.
+                  width: MediaQuery.of(context).size.width - 150,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Clock Out", style: TextStyle(fontSize: 40)),
+                    ),
                   )
-                ),
-              )
+                )
+              ),
+            ],
+          );
+
+
+
+
+        }
+        else
+        {
+            return SafeArea(
+              child: Builder(builder: (context) {
+                return Material(
+                    color: Colors.transparent,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                            height: 200.0,
+                            width: 250.0,
+                            color: Colors.transparent,
+                            child:
+                                Column(
+                                  children: [
+                                    Center(child: CircularProgressIndicator()),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Waiting for verification from server.",
+                                        style: TextStyle(color: Colors.white, fontSize: 12)
+                                      ),
+                                    )
+                                  ],
+                                ))));
+              }),
             );
-          }
-        );
+        }
       }
     );
   }
