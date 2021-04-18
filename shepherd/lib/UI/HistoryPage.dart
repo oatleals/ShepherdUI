@@ -1,26 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light().copyWith(
-        textTheme: TextTheme(
-          bodyText1: TextStyle(
-            fontSize: 40.0,
-            color: Colors.blue,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      home: HomeView(title: "History Page"),
-    );
-  }
-}
-
 List historyDateList = [
   "Jan. 12",
   "Apr. 4",
@@ -88,9 +68,9 @@ colorsFunction() {
   return element;
 }
 
-class HomeView extends StatelessWidget {
+class HistoryPage extends StatelessWidget {
   final String title;
-  HomeView({this.title});
+  HistoryPage({this.title});
 
   createAlertDialog(BuildContext context) {
     return showDialog(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'UI/HistoryPage.dart';
 import 'UI/HomePage.dart';
 import 'UI/LoginPage.dart';
 
@@ -17,6 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/Home': (context) => HomePage(),
+        '/ViewHistory': (context) => HistoryPage(),
+        '/Login': (context) => LoginPage(),
       },
       title: 'Shepherd EVV',
       theme: ThemeData(
