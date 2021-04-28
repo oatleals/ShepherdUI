@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPageOTP extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginPageOTPState createState() => _LoginPageOTPState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageOTPState extends State<LoginPageOTP> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 60.0),
             TextField(
               decoration: InputDecoration(
-                  labelText: "Email",
+                  labelText: "One Time Password",
                   labelStyle: TextStyle(fontSize: 20),
                   filled: true),
             ),
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                     //disabledElevation: 4.0,
                     onPressed: () {
-                      Navigator.of(context).pushReplacementNamed("/LoginOTP");
+                      Navigator.of(context).pushReplacementNamed("/Home");
                     },
                     child: Text(
                       'Login',

@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'UI/HistoryPage.dart';
 import 'UI/HomePage.dart';
 import 'UI/LoginPage.dart';
+import 'UI/LoginPageOTP.dart';
+//import 'package:flutter/material.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/Home': (context) => HomePage(),
         '/ViewHistory': (context) => HistoryPage(),
         '/Login': (context) => LoginPage(),
+        '/LoginOTP': (context) => LoginPageOTP(),
       },
       title: 'Shepherd EVV',
       theme: ThemeData(
