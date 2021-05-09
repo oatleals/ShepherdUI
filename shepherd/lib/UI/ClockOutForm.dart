@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,7 +27,6 @@ class _ClockOutFormState extends State<ClockOutForm>
       future: prefs,
       builder: (context, snapshot)
       {
-        var taskEnabled = [false,false,false,false,false];
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,24 +76,27 @@ class _ClockOutFormState extends State<ClockOutForm>
                 ),
                 Row(
                   children: [
-                    Container(
-                      width: 175,
-                      child: TextField(
-                        style: TextStyle(
-                          fontSize:20,
-                          color: Colors.blue
-                        ),
-                        controller: tokenTextController,
-                        keyboardType: TextInputType.number,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 2
-                            )
+                    Padding(
+                      padding: const EdgeInsets.only(top:8.0),
+                      child: Container(
+                        width: 175,
+                        child: TextField(
+                          style: TextStyle(
+                            fontSize:20,
+                            color: Colors.blue
                           ),
-                          labelText: 'Token'
+                          controller: tokenTextController,
+                          keyboardType: TextInputType.number,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                                width: 2
+                              )
+                            ),
+                            labelText: 'Token'
+                          ),
                         ),
                       ),
                     ),
@@ -105,13 +109,14 @@ class _ClockOutFormState extends State<ClockOutForm>
                 Padding(
                   padding: const EdgeInsets.only(top:8.0, bottom: 8),
                   child: MultiSelectFormField(
+                    checkBoxActiveColor: Colors.white,
                     dialogShapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
                     dialogTextStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                     chipBackGroundColor: Colors.blue,
                     chipLabelStyle: TextStyle(color: Colors.white, fontSize: 16),
                     checkBoxCheckColor: Colors.blue,
                     fillColor: Colors.blue[200],
-                    title: Text('Tasks', style: TextStyle(color: Colors.white, fontSize: 20),),
+                    title: Text('Tasks', style: TextStyle(color: Colors.white, fontSize: 24),),
                     hintWidget: null,
                     autovalidate: false,
                     validator: (value) {

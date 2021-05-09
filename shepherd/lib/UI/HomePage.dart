@@ -150,7 +150,7 @@ class _HomePageState extends State<HomePage>
               side: BorderSide(color: Colors.white, width: 3)
             ),
             backgroundColor: Colors.blue[200],
-            content: Container(
+            content: SingleChildScrollView(
               //height: 300, 
               child: ClockInForm()
             )
