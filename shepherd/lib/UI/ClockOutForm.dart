@@ -227,7 +227,7 @@ class _ClockOutFormState extends State<ClockOutForm>
         final snackBar = SnackBar(
           content: Text('INVALID INPUT',
             style: TextStyle(color: Colors.red, fontSize: 20)));
-      
+        FocusScope.of(context).unfocus(); // hide keyboard
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         break;
     }
