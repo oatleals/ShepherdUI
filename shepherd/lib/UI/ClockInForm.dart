@@ -100,11 +100,27 @@ class _ClockInFormState extends State<ClockInForm> {
         ElevatedButton(
           onPressed: () async
           { 
+            var clientId;
+            var token;
+            var officeId;
+
+            try {
+              clientId = int.parse(clientIdTextController.text);
+              token = int.parse(tokenTextController.text);
+              officeId = int.parse(officeIdTextController.text);
+            }
+            catch(_) {
+              clientId = -1;
+              token = -1;
+              officeId = -1;
+              print('passing bad values to clock() to generate invalid input response within ui');
+            }
+            
             final status = await clock(
               true, // is clock in
-              int.parse(clientIdTextController.text),
-              int.parse(tokenTextController.text),
-              int.parse(officeIdTextController.text)
+              clientId,
+              token,
+              officeId
             );
 
             showSnackbar(status);
