@@ -36,6 +36,7 @@ dependencies:
   http: 
   connectivity:
   shared_preferences:
+  multiselect_formfield:
 
   awesome_dialog: 
 

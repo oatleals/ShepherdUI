@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/controllers/ClockController.dart';
 import 'package:shepherd/errors.dart';
@@ -87,33 +88,54 @@ class _ClockOutFormState extends State<ClockOutForm>
                     )
                   ],
                 ),
-                Container(
-                  height:250,
-                  width:200,
-                  child: ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (context, index)
-                    {
-                      return StatefulBuilder(
-                        builder: (context, setState)
-                        {
-                          return CheckboxListTile(
-                            checkColor: Colors.white,
-                            title: Text('task',
-                              style: TextStyle(color: Colors.white),),
-                            value: taskEnabled[index], 
-                            onChanged: (bool val) async
-                            {            
-                              setState(() {
-                                taskEnabled[index] = val;
-                              });              
-                            }
-                          );
-                        }
-                      );
-                    })
-                      
-                ),
+                Padding(
+                  padding: const EdgeInsets.only(top:8.0, bottom: 8),
+                  child: MultiSelectFormField(
+                    dialogShapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                    chipBackGroundColor: Colors.blue,
+                    chipLabelStyle: TextStyle(color: Colors.white, fontSize: 16),
+                    checkBoxCheckColor: Colors.blue,
+                    fillColor: Colors.blue[200],
+                    title: Text('Tasks', style: TextStyle(color: Colors.white, fontSize: 20),),
+                    hintWidget: null,
+                    autovalidate: false,
+                    validator: (value) {
+                      if (value == null || value.length == 0) {
+                        return 'Please select one or more options';
+                      }
+                    },
+                    dataSource: [
+                      {
+                        "display": "task1",
+                        "value": "task1",
+                      },
+                      {
+                        "display": "task2",
+                        "value": "task2",
+                      },
+                      {
+                        "display": "task3",
+                        "value": "task3",
+                      },
+                      {
+                        "display": "task4",
+                        "value": "task4",
+                      },
+                      {
+                        "display": "task5",
+                        "value": "task5",
+                      },
+                      {
+                        "display": "task6",
+                        "value": "task6",
+                      }
+                    ],
+                    textField: 'display',
+                    valueField: 'value',
+                    okButtonLabel: 'OK',
+                    cancelButtonLabel: 'CANCEL',
+                  ),
+                )
                 
               ],
             ),
