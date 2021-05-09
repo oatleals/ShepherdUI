@@ -45,7 +45,11 @@ Future<ERROR> clock(
       Uri.parse('http://ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-out');
 
     final client = Client();
-    final response = await client.post(url, body: workData.serializeForEVV());
+    final response = await client.post(
+      url,
+      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'}, 
+      body: workData.serializeForEVV());
+      
     client.close();
 
     print(response.statusCode);

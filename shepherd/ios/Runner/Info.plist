@@ -13,12 +13,12 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-in</key>
+			<key>ec2-52-23-212-121.compute-1.amazonaws.com/evv/clock-in</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-out</key>
+			<key>ec2-52-23-212-121.compute-1.amazonaws.com/evv/clock-out</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
