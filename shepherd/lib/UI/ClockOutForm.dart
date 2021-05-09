@@ -151,12 +151,22 @@ class _ClockOutFormState extends State<ClockOutForm> {
             ElevatedButton(
               onPressed: () async
               {
+                var token;
+
+                try {
+                  token = int.parse(tokenTextController.text);
+                }
+                catch(_){
+                  token = -1;
+                  print('passing bad values to clock() to generate invalid input response within ui');
+                }
+
                 final prefs = await SharedPreferences.getInstance();
                 
                 final status = await clock(
                   false, // is clock out
                   prefs.getInt('clientId'),
-                  int.parse(tokenTextController.text),
+                  token,
                   prefs.getInt('officeId'));
 
                 showSnackbar(status);
