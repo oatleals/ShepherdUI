@@ -15,8 +15,8 @@ class _ClockInFormState extends State<ClockInForm>
   @override
   Widget build(BuildContext context) 
   {
-    var clientIdTextController = new TextEditingController();
-    var tokenTextController = new TextEditingController();
+    final clientIdTextController = new TextEditingController();
+    final tokenTextController = new TextEditingController();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

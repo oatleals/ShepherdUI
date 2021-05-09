@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/connectivity/ConnectionChecker.dart';
 import 'package:shepherd/domain_data/LocalDBContainer.dart';
 import 'package:shepherd/domain_data/WorkData.dart';
-import 'package:http/http.dart' as http;
 import 'package:shepherd/location/LocationFinder.dart';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ClockController
 {
@@ -14,13 +14,14 @@ class ClockController
     int clientId, 
     int token}) async
   {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final clientId = sharedPreferences.getInt('clientId').toString();
+    final token = sharedPreferences.getInt('token').toString();
+
     final localDBContainer = new LocalDBContainer();
     await localDBContainer.init();
-    final prefs = await SharedPreferences.getInstance();
-    final clientId = prefs.getInt('clientId').toString();
-    final token = prefs.getInt('token').toString();
 
-    ConnectionChecker connection = new ConnectionChecker();
+    final connection = new ConnectionChecker();
 
     if (clientId.length != 6 || token.length != 6)
     {
@@ -36,57 +37,40 @@ class ClockController
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       return;
-    };
+    }
 
     LocationFinder locFinder = new LocationFinder();
     await locFinder.getLocation();
 
+    //TODO: test to see if this await is needed.
     await showProgressIndicator(context);
-
 
     WorkData workData = new WorkData(
       isClockIn: 1,
-      userId: prefs.getInt('userId'),
-      clientId: prefs.getInt('clientId'),
-      token: prefs.getInt('token'),
+      userId: sharedPreferences.getInt('userId'),
+      clientId: sharedPreferences.getInt('clientId'),
+      token: sharedPreferences.getInt('token'),
       time: locFinder.locationData.time,
       latitude: locFinder.locationData.latitude,
       longitude: locFinder.locationData.longitude
     );
 
-    bool connected = await connection.isConnected();
-
-    var url = Uri.parse('https://path/to/backend'); 
-    bool data_authenticated = true;
-
-    SnackBar snackBar;
+    bool dataAuthenticated = false;
+    final connected = await connection.isConnected();
 
     if (connected)
     {
-      Response auth;
+      final url = Uri.parse('https://ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-in');
+      final client = Client();
+      final response = await client.post(url, body: workData.serializeForEVV());
+      client.close();
 
-      try 
-      {
-        var client = http.Client();
-        await client.post(url, body: workData.stringStringMap()); 
-        auth = await client.get(url);
-        client.close();
-      }
-      catch (any)
-      {
-        data_authenticated = false;
-      }
-
-      data_authenticated = data_authenticated && auth.body == "AUTHENTICATED"; // placeholder
-
-    }
-    else 
-    {
-      data_authenticated = false;
+      dataAuthenticated = response.statusCode == 200;
     }
 
-
-    if (data_authenticated && connected)
+    SnackBar snackBar;
+  
+    if (dataAuthenticated)
     {
       snackBar = SnackBar(
         content: Row(
@@ -117,13 +101,10 @@ class ClockController
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
-    prefs.setBool('isClockedIn', true);
+    sharedPreferences.setBool('isClockedIn', true);
     localDBContainer.insert(workData);
-      
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
-    Navigator.of(context).pushReplacementNamed('/Home');
-
+    
+    Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
   }
 
   static Future<void> clockOut(BuildContext context) async
@@ -147,7 +128,7 @@ class ClockController
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       return;
-    };
+    }
 
     LocationFinder locFinder = new LocationFinder();
     await locFinder.getLocation();
@@ -167,37 +148,37 @@ class ClockController
       longitude: locFinder.locationData.longitude
     );
 
-    var url = Uri.parse('https://path/to/backend'); 
-    bool data_authenticated = true;
+    final url = Uri.parse('EmployeeInfo server endpoint'); 
+    var dataAuthenticated = true;
 
     ConnectionChecker connection = new ConnectionChecker();
     bool connected = await connection.isConnected();
 
     if (connected)
     {
-      Response auth;
+      var response;
 
       try 
       {
-        var client = http.Client();
-        await client.post(url, body: workData.stringStringMap()); 
-        auth = await client.get(url);
+        final client = Client();
+        await client.post(url, body: workData.serializeForEVV()); 
+        response = await client.get(url);
         client.close();
       }
       catch (any)
       {
-        data_authenticated = false;
+        dataAuthenticated = false;
       }
       
-      data_authenticated = data_authenticated && auth.body == "AUTHENTICATED"; // placeholder
+      dataAuthenticated = dataAuthenticated && response.body == "AUTHENTICATED"; // placeholder
     }
     else 
     {
-      data_authenticated = false;
+      dataAuthenticated = false;
     }
 
 
-    if (data_authenticated)
+    if (dataAuthenticated)
     {
       snackBar = SnackBar(
         content: Row(

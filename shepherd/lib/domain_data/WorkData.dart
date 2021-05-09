@@ -1,12 +1,11 @@
 class WorkData {
   int isClockIn;
   int isAuthenticated;
-
   int userId;
 
+  // These values are serialized and sent to the EVV.
   int clientId;
   int token;
-
   double time;
   double latitude;
   double longitude;
@@ -24,7 +23,7 @@ class WorkData {
       this.tasks,
       this.isAuthenticated});
 
-  Map<String, dynamic> stringObjMap() {
+  Map<String, dynamic> serializeForLocalDB() {
     return {
       'isClockIn': isClockIn,
       'userId': userId,
@@ -38,17 +37,14 @@ class WorkData {
     };
   }
 
-  Map<String, String> stringStringMap() {
+  Map<String, String> serializeForEVV() {
     return {
-      'isClockIn': isClockIn.toString(),
-      'userId': userId.toString(),
-      'clientId': clientId.toString(),
-      'token': token.toString(),
-      'time': time.toString(),
+      'client_id': 'REMOVETHISENTRY',
+      'one_time_password': token.toString(),
+      'time_stamp': time.toString(),
       'latitude': latitude.toString(),
       'longitude': longitude.toString(),
-      'tasks': tasks.toString(),
-      'isAuthenticated': isAuthenticated.toString()
+      'office_id' : "1"
     };
   }
 }
