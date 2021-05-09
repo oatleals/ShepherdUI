@@ -116,7 +116,8 @@ class _ClockInFormState extends State<ClockInForm>
             final status = await clock(
               true, // is clock in
               int.parse(clientIdTextController.text),
-              int.parse(tokenTextController.text)
+              int.parse(tokenTextController.text),
+              int.parse(officeIdTextController.text)
             );
 
             showSnackbar(status);

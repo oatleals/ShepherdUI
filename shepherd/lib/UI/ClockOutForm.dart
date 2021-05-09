@@ -35,21 +35,35 @@ class _ClockOutFormState extends State<ClockOutForm>
                 Stack(
                   alignment: AlignmentDirectional.topEnd,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Row(
-                        children: [
-                          Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
-                          Text( snapshot.connectionState == ConnectionState.done ?
-                            snapshot.data.getInt('clientId').toString() :
-                            '', 
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.blue
-                            )
-                          ),
-                        ],
-                      ),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text("Client ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
+                            Text( snapshot.connectionState == ConnectionState.done ?
+                              snapshot.data.getInt('clientId').toString() :
+                              '', 
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.blue
+                              )
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text("Office ID: ", style: TextStyle(fontSize: 20, color: Colors.white)),
+                            Text( snapshot.connectionState == ConnectionState.done ?
+                              snapshot.data.getInt('officeId').toString() :
+                              '', 
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.blue
+                              )
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                     IconButton(
                       iconSize: 30,
