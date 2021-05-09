@@ -4,15 +4,15 @@ import 'UI/HistoryPage.dart';
 import 'UI/HomePage.dart';
 import 'UI/LoginPage.dart';
 
-main() async {
+main() async 
+{ 
   WidgetsFlutterBinding.ensureInitialized();
-
   await initializeSharedPrefs();
 
-  runApp(MyApp());
+  runApp(ShepherdApp());
 }
 
-class MyApp extends StatelessWidget {
+class ShepherdApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,4 +39,6 @@ Future<void> initializeSharedPrefs() async {
   if (prefs.getBool('isClockedIn') == null) {
     prefs.setBool('isClockedIn', false);
   }
+
+  prefs.setBool('isClockedIn', false);
 }

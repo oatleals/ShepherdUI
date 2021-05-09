@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/controllers/ClockController.dart';
+
+import '../errors.dart';
 
 
 class ClockInForm extends StatefulWidget 
@@ -90,14 +91,13 @@ class _ClockInFormState extends State<ClockInForm>
         ElevatedButton(
           onPressed: () async
           { 
-            final prefs = await SharedPreferences.getInstance();
-            prefs.setInt('clientId', int.parse(clientIdTextController.text));
-            prefs.setInt('token', int.parse(tokenTextController.text));
-            await ClockController.clockIn(
-              context: context,
-              clientId: int.parse(clientIdTextController.text),
-              token: int.parse(tokenTextController.text)
+            final status = await clock(
+              true, // is clock in
+              int.parse(clientIdTextController.text),
+              int.parse(tokenTextController.text)
             );
+
+            showSnackbar(status);
           },  
 
           child: Container(
@@ -113,6 +113,65 @@ class _ClockInFormState extends State<ClockInForm>
         ),
       ],
     );
+  }
+
+  void showSnackbar(ERROR status) 
+  {
+    switch (status)
+    {
+      case ERROR.success:
+        final snackBar = SnackBar(
+          content: Row(
+            children: [
+              Text('Clock In: ',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+              Text('SUCCESS',
+                style: TextStyle(color: Colors.green, fontSize: 20)),
+            ],
+          )
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        break;
+
+      case ERROR.http_failed:
+        final snackBar = SnackBar(
+          content: Row(
+            children: [
+              Text('Clock In: ',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+              Text('SUCCESS (UNVERIFIED)',
+                style: TextStyle(color: Colors.yellow, fontSize: 20)),
+            ],
+          )
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        break;
+
+      case ERROR.no_connection:
+        final snackBar = SnackBar(
+          content: Row(
+            children: [
+              Text('Clock In: ',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+              Text('SUCCESS (UNVERIFIED)',
+                style: TextStyle(color: Colors.yellow, fontSize: 20)),
+            ],
+          )
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        break;
+
+      case ERROR.invalid_input:
+        final snackBar = SnackBar(
+          content: Text('INVALID INPUT',
+            style: TextStyle(color: Colors.red, fontSize: 20)));
+      
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        break;
+    }
   }
 
 }

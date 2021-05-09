@@ -1,13 +1,6 @@
-
-
-
-
-
-
-
-
-enum gang_erorr {
+enum ERROR {
   success,
   no_connection,
-  http_failed
+  http_failed,
+  invalid_input
 }

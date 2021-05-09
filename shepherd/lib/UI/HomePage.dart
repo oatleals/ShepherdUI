@@ -64,9 +64,9 @@ class _HomePageState extends State<HomePage>
                       onPressed: () 
                       {                       
                         if (snapshot.data.getBool('isClockedIn'))
-                          showClockOutDialog(context);
+                          showClockOutForm(context);
                         else 
-                          showClockInDialog(context); 
+                          showClockInForm(context); 
                       }, 
                       child: Container(
                         child: Center(
@@ -129,19 +129,12 @@ class _HomePageState extends State<HomePage>
               }),
             ),
           );
-
-
-
-
-
-
-
         }
       },
     );
   }
 
-  void showClockInDialog(BuildContext context) 
+  void showClockInForm(BuildContext context) 
   {
     showDialog<AlertDialog>(
       context: context,
@@ -164,7 +157,7 @@ class _HomePageState extends State<HomePage>
     ); 
   }
   
-  void showClockOutDialog(BuildContext context) 
+  void showClockOutForm(BuildContext context) 
   {
     showDialog<AlertDialog>(
       context: context,

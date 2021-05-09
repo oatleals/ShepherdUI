@@ -1,5 +1,5 @@
 class WorkData {
-  int isClockIn;
+  bool isClockIn;
   int isAuthenticated;
   int userId;
 

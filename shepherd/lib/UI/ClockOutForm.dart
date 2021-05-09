@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/controllers/ClockController.dart';
+import 'package:shepherd/errors.dart';
+
 
 class ClockOutForm extends StatefulWidget 
 {
@@ -17,7 +19,6 @@ class _ClockOutFormState extends State<ClockOutForm>
   {
     final tokenTextController = new TextEditingController();
     final prefs = SharedPreferences.getInstance();
-
 
     return FutureBuilder(
       future: prefs,
@@ -120,9 +121,13 @@ class _ClockOutFormState extends State<ClockOutForm>
                 onPressed: () async
                 {
                   final prefs = await SharedPreferences.getInstance();
-                  prefs.setInt('token', int.parse(tokenTextController.text));
+                  
+                  final status = await clock(
+                    false, // is clock out
+                    prefs.getInt('clientId'),
+                    int.parse(tokenTextController.text));
 
-                  ClockController.clockOut(context);
+                  showSnackbar(status);
                 },
                 child: Container(
                   // This is how to get the maximum width of the display.
@@ -168,6 +173,65 @@ class _ClockOutFormState extends State<ClockOutForm>
         }
       }
     );
+  }
+
+  void showSnackbar(ERROR status) 
+  {
+    switch (status)
+    {
+      case ERROR.success:
+        final snackBar = SnackBar(
+          content: Row(
+            children: [
+              Text('Clock Out: ',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+              Text('SUCCESS',
+                style: TextStyle(color: Colors.green, fontSize: 20)),
+            ],
+          )
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        break;
+
+      case ERROR.http_failed:
+        final snackBar = SnackBar(
+          content: Row(
+            children: [
+              Text('Clock Out: ',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+              Text('SUCCESS (UNVERIFIED)',
+                style: TextStyle(color: Colors.yellow, fontSize: 20)),
+            ],
+          )
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        break;
+
+      case ERROR.no_connection:
+        final snackBar = SnackBar(
+          content: Row(
+            children: [
+              Text('Clock Out: ',
+                style: TextStyle(color: Colors.white, fontSize: 20)),
+              Text('SUCCESS (UNVERIFIED)',
+                style: TextStyle(color: Colors.yellow, fontSize: 20)),
+            ],
+          )
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        break;
+
+      case ERROR.invalid_input:
+        final snackBar = SnackBar(
+          content: Text('INVALID INPUT',
+            style: TextStyle(color: Colors.red, fontSize: 20)));
+      
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        break;
+    }
   }
 
 }

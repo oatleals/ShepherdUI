@@ -24,7 +24,7 @@ class LocalDBContainer {
   Future<void> insert(WorkData workData) async {
     await localdb.insert(
       'workData',
-      workData.stringObjMap(),
+      workData.serializeForLocalDB(),
       conflictAlgorithm: ConflictAlgorithm.replace
     );
   }
