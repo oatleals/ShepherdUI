@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/controllers/ClockController.dart';
 import 'package:shepherd/errors.dart';
 
+import 'common.dart';
+
 
 class ClockOutForm extends StatefulWidget {
   ClockOutForm({Key key}) : super(key: key);
@@ -151,12 +153,13 @@ class _ClockOutFormState extends State<ClockOutForm> {
             ElevatedButton(
               onPressed: () async
               {
+                showProgressIndicatorDialog(context);
                 var token;
 
                 try {
                   token = int.parse(tokenTextController.text);
                 }
-                catch(_){
+                catch(_) {
                   token = -1;
                   print('passing bad values to clock() to generate invalid input response within ui');
                 }
@@ -169,8 +172,10 @@ class _ClockOutFormState extends State<ClockOutForm> {
                   token,
                   prefs.getInt('officeId'));
 
+                Navigator.of(context).pop(); // pop progress indicator
                 showSnackbar(status);
               },
+
               child: Container(
                 // This is how to get the maximum width of the display.
                 width: MediaQuery.of(context).size.width - 150,

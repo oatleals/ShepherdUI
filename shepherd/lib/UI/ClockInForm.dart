@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shepherd/controllers/ClockController.dart';
 
 import '../errors.dart';
+import 'common.dart';
 
 
 class ClockInForm extends StatefulWidget 
@@ -206,41 +207,6 @@ class _ClockInFormState extends State<ClockInForm> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
         break;
     }
-  }
-
-  showProgressIndicatorDialog(BuildContext context) {
-    showDialog<AlertDialog>(
-      context: context,
-      builder: (context) {
-        return Scaffold(
-      drawerScrimColor: Colors.transparent,
-      backgroundColor: Colors.transparent,
-            body: Builder(builder: (context) {
-              return Material(
-                  color: Colors.transparent,
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                          height: 200.0,
-                          width: 250.0,
-                          color: Colors.transparent,
-                          child:
-                              Column(
-                                children: [
-                                  Center(child: CircularProgressIndicator()),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "Waiting for verification from server.",
-                                      style: TextStyle(color: Colors.white, fontSize: 12)
-                                    ),
-                                  )
-                                ],
-                              ))));
-            }),
-          );
-      }
-    ); 
   }
 }
 
