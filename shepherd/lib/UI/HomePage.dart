@@ -30,8 +30,8 @@ class _HomePageState extends State<HomePage>
             appBar: AppBar(
               title: Padding(
                 padding: const EdgeInsets.only(left:8.0, right:8.0),
-                child: snapshot.data.getBool('isClockedIn') 
-                  ? Row(
+                child: snapshot.data.getBool('isClockedIn') ?
+                  Row(
                     children: [ 
                       Text('Forgot to clock out?'), 
                       IconButton(
@@ -100,37 +100,37 @@ class _HomePageState extends State<HomePage>
         }
         else
         {
-          
-
           return Scaffold(
             body: SafeArea(
               child: Builder(builder: (context) {
                 return Material(
-                    color: Colors.transparent,
-                    child: Align(
-                        alignment: Alignment.center,
-                        child: Container(
-                            height: 200.0,
-                            width: 250.0,
-                            color: Colors.transparent,
-                            child:
-                                Column(
-                                  children: [
-                                    Center(child: CircularProgressIndicator()),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        "Waiting for verification from server.",
-                                        style: TextStyle(color: Colors.white, fontSize: 12)
-                                      ),
-                                    )
-                                  ],
-                                ))));
+                  color: Colors.transparent,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 200.0,
+                      width: 250.0,
+                      color: Colors.transparent,
+                      child: Column(
+                        children: [
+                          Center(child: CircularProgressIndicator()),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Waiting for verification from server.",
+                              style: TextStyle(color: Colors.white, fontSize: 12)
+                            ),
+                          )
+                        ],
+                      )
+                    )
+                  )
+                );
               }),
             ),
           );
         }
-      },
+      }
     );
   }
 
@@ -171,7 +171,7 @@ class _HomePageState extends State<HomePage>
             ),
             backgroundColor: Colors.blue[200],
             content: Container(
-              height: MediaQuery.of(context).size.height - 400, 
+              height: MediaQuery.of(context).size.height - 200, 
               child: ClockOutForm()
             )
           )

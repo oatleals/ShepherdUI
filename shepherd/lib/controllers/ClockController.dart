@@ -35,9 +35,6 @@ Future<ERROR> clock(
     longitude: locationFinder.locationData.longitude
   );
 
-  final test = await connection.isConnected();
-  print('');
-
   if (await connection.isConnected())
   {
     final url = clockin ? 
@@ -47,9 +44,9 @@ Future<ERROR> clock(
     final client = Client();
     final response = await client.post(
       url,
-      headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8'}, 
+      headers: <String, String>{'Content-Type': 'application/json'}, 
       body: workData.serializeForEVV());
-      
+
     client.close();
 
     print(response.statusCode);

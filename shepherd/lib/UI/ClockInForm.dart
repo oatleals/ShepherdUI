@@ -131,7 +131,9 @@ class _ClockInFormState extends State<ClockInForm>
           )
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        while (Navigator.of(context).canPop()) 
+          Navigator.of(context).pop();
+        Navigator.of(context).pushReplacementNamed('/Home');
         break;
 
       case ERROR.http_failed:
@@ -146,7 +148,9 @@ class _ClockInFormState extends State<ClockInForm>
           )
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        while (Navigator.of(context).canPop()) 
+          Navigator.of(context).pop();
+        Navigator.of(context).pushReplacementNamed('/Home');
         break;
 
       case ERROR.no_connection:
@@ -161,7 +165,9 @@ class _ClockInFormState extends State<ClockInForm>
           )
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        Navigator.of(context).popUntil(ModalRoute.withName('/Home'));
+        while (Navigator.of(context).canPop()) 
+          Navigator.of(context).pop();
+        Navigator.of(context).pushReplacementNamed('/Home');
         break;
 
       case ERROR.invalid_input:
