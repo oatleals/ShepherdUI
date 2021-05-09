@@ -100,6 +100,7 @@ class _ClockInFormState extends State<ClockInForm> {
         ElevatedButton(
           onPressed: () async
           { 
+            showProgressIndicatorDialog(context);
             var clientId;
             var token;
             var officeId;
@@ -123,6 +124,7 @@ class _ClockInFormState extends State<ClockInForm> {
               officeId
             );
 
+            Navigator.of(context).pop(); // pop progress indicator
             showSnackbar(status);
           },  
 
@@ -206,5 +208,39 @@ class _ClockInFormState extends State<ClockInForm> {
     }
   }
 
+  showProgressIndicatorDialog(BuildContext context) {
+    showDialog<AlertDialog>(
+      context: context,
+      builder: (context) {
+        return Scaffold(
+      drawerScrimColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
+            body: Builder(builder: (context) {
+              return Material(
+                  color: Colors.transparent,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                          height: 200.0,
+                          width: 250.0,
+                          color: Colors.transparent,
+                          child:
+                              Column(
+                                children: [
+                                  Center(child: CircularProgressIndicator()),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Waiting for verification from server.",
+                                      style: TextStyle(color: Colors.white, fontSize: 12)
+                                    ),
+                                  )
+                                ],
+                              ))));
+            }),
+          );
+      }
+    ); 
+  }
 }
 
