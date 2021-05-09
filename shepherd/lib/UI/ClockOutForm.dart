@@ -7,16 +7,14 @@ import 'package:shepherd/controllers/ClockController.dart';
 import 'package:shepherd/errors.dart';
 
 
-class ClockOutForm extends StatefulWidget 
-{
+class ClockOutForm extends StatefulWidget {
   ClockOutForm({Key key}) : super(key: key);
 
   @override
   _ClockOutFormState createState() => _ClockOutFormState();
 }
-class _ClockOutFormState extends State<ClockOutForm> 
-{
 
+class _ClockOutFormState extends State<ClockOutForm> {
   @override
   Widget build(BuildContext context) 
   {
@@ -85,17 +83,30 @@ class _ClockOutFormState extends State<ClockOutForm>
                             fontSize:20,
                             color: Colors.blue
                           ),
-                          controller: tokenTextController,
-                          keyboardType: TextInputType.number,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                                width: 2
-                              )
-                            ),
-                            labelText: 'Token'
+                        ),
+                        IconButton(
+                            iconSize: 30,
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: Icon(Icons.close)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width: 175,
+                          child: TextField(
+                            style: TextStyle(fontSize: 20, color: Colors.blue),
+                            controller: tokenTextController,
+                            keyboardType: TextInputType.number,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white, width: 2)),
+                                labelText: 'Token'),
                           ),
                         ),
                       ),
@@ -253,5 +264,4 @@ class _ClockOutFormState extends State<ClockOutForm>
         break;
     }
   }
-
 }

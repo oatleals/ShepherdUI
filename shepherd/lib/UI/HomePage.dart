@@ -4,27 +4,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'ClockInForm.dart';
 import 'ClockOutForm.dart';
 
-class HomePage extends StatefulWidget 
-{
+class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> 
-{
+class _HomePageState extends State<HomePage> {
   final prefs = SharedPreferences.getInstance();
 
   @override
-  Widget build(BuildContext context) 
-  {
+  Widget build(BuildContext context) {
     return FutureBuilder(
       future: prefs,
-      builder: (context, snapshot)
-      {
-        if (snapshot.connectionState == ConnectionState.done)
-        {
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
           final userId = snapshot.data.getInt('userId').toString();
           return Scaffold(
             resizeToAvoidBottomInset: false,
@@ -82,17 +77,17 @@ class _HomePageState extends State<HomePage>
                   ),
                   Expanded(
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: BeveledRectangleBorder(),
-                        primary: Colors.blue[200]
-                      ),
-                      onPressed: (){ Navigator.pushNamed(context, '/ViewHistory'); }, 
-                      child: Container(
-                        child: Center(
-                          child: Text("View History", style: TextStyle(fontSize: 50)),
-                        )
-                      )
-                    ),
+                        style: ElevatedButton.styleFrom(
+                            shape: BeveledRectangleBorder(),
+                            primary: Colors.blue[200]),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/ViewHistory');
+                        },
+                        child: Container(
+                            child: Center(
+                          child: Text("View History",
+                              style: TextStyle(fontSize: 50)),
+                        ))),
                   ),
                 ],
               ),
@@ -183,5 +178,5 @@ class _HomePageState extends State<HomePage>
       }
     ); 
   }
-
+  
 }

@@ -11,8 +11,8 @@ class ClockInForm extends StatefulWidget
   @override
   _ClockInFormState createState() => _ClockInFormState();
 }
-class _ClockInFormState extends State<ClockInForm> 
-{
+
+class _ClockInFormState extends State<ClockInForm> {
   @override
   Widget build(BuildContext context) 
   {
@@ -30,30 +30,24 @@ class _ClockInFormState extends State<ClockInForm>
             Padding(
               padding: const EdgeInsets.only(top: 0.0),
               child: TextField(
-                style: TextStyle(
-                  fontSize:35,
-                  color: Colors.blue
-                ),
+                style: TextStyle(fontSize: 35, color: Colors.blue),
                 controller: clientIdTextController,
                 keyboardType: TextInputType.number,
                 obscureText: false,
                 decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                      width: 2
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 2),
                     ),
-                  ),              
-                  labelText: 'Client ID'
-                ),
+                    labelText: 'Client ID'),
               ),
             ),
             IconButton(
-              iconSize: 30,
-              color: Colors.white,
-              onPressed:() { Navigator.of(context).pop(); }, 
-              icon: Icon(Icons.close)
-            ),
+                iconSize: 30,
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(Icons.close)),
           ],
         ),
         Padding(
@@ -85,27 +79,20 @@ class _ClockInFormState extends State<ClockInForm>
               Container(
                 width: 175,
                 child: TextField(
-                  style: TextStyle(
-                    fontSize:35,
-                    color: Colors.blue
-                  ),
+                  style: TextStyle(fontSize: 35, color: Colors.blue),
                   controller: tokenTextController,
                   keyboardType: TextInputType.number,
                   obscureText: false,
                   decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                        width: 2
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white, width: 2),
                       ),
-                    ),
-                    labelText: 'Token'
-                  ),
+                      labelText: 'Token'),
                 ),
               ),
               IconButton(
                 icon: Icon(Icons.camera_alt, size: 30, color: Colors.blue),
-                onPressed: (){}, // For scanning token.
+                onPressed: () {}, // For scanning token.
               )
             ],
           ),
@@ -204,3 +191,4 @@ class _ClockInFormState extends State<ClockInForm>
   }
 
 }
+
