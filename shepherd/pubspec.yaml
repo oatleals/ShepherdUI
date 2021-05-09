@@ -29,12 +29,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   
+  ## extra
   location: ^3.0.0
   sqflite:
   path:
   http: 
   connectivity:
   shared_preferences:
+  multiselect_formfield:
+    git:
+      url: https://github.com/donahoem/multiselect_formfield # forked into my person repo so we can modify to fit our style
 
   awesome_dialog: 
 

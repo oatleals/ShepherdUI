@@ -1,12 +1,14 @@
-class WorkData {
-  int isClockIn;
-  int isAuthenticated;
+import 'dart:convert';
 
+class WorkData {
+  bool isClockIn;
+  int isAuthenticated;
   int userId;
 
+  // These values are serialized and sent to the EVV.
   int clientId;
+  int officeId;
   int token;
-
   double time;
   double latitude;
   double longitude;
@@ -17,6 +19,7 @@ class WorkData {
       {this.isClockIn,
       this.userId,
       this.clientId,
+      this.officeId,
       this.token,
       this.time,
       this.latitude,
@@ -24,7 +27,7 @@ class WorkData {
       this.tasks,
       this.isAuthenticated});
 
-  Map<String, dynamic> stringObjMap() {
+  Map<String, dynamic> serializeForLocalDB() {
     return {
       'isClockIn': isClockIn,
       'userId': userId,
@@ -38,17 +41,40 @@ class WorkData {
     };
   }
 
-  Map<String, String> stringStringMap() {
-    return {
-      'isClockIn': isClockIn.toString(),
-      'userId': userId.toString(),
-      'clientId': clientId.toString(),
-      'token': token.toString(),
-      'time': time.toString(),
-      'latitude': latitude.toString(),
-      'longitude': longitude.toString(),
-      'tasks': tasks.toString(),
-      'isAuthenticated': isAuthenticated.toString()
-    };
+  /*
+  String serializeForEVV() {
+    print(time.toString());
+    return jsonEncode({
+      'time_stamp': '2021-03-27 00:00:00',
+      'client_id': 0,
+      'latitude': 0,
+      'longitude': 0,
+      'office_id' : 1,
+      'one_time_password': 0,
+    });
   }
+  */
+
+  String serializeForEVV() {
+    return jsonEncode(
+      isClockIn ? {
+        'time_stamp': '2021-03-27 00:00:00',
+        'client_id': clientId.toString(),
+        'latitude': latitude.toString(),
+        'longitude': longitude.toString(),
+        'office_id' : officeId.toString(),
+        'one_time_password': token.toString(),
+      } :
+      {
+        'time_stamp': '2021-03-27 00:00:00',
+        'client_id': clientId.toString(),
+        'latitude': latitude.toString(),
+        'longitude': longitude.toString(),
+        'tasks_performed': [""],
+        'office_id' : officeId.toString(),
+        'one_time_password': token.toString(),
+      }
+    );
+  }
+  
 }
