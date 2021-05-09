@@ -72,43 +72,21 @@ class _ClockOutFormState extends State<ClockOutForm> {
                     ),
                   ],
                 ),
+               
                 Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top:8.0),
-                      child: Container(
-                        width: 175,
-                        child: TextField(
-                          style: TextStyle(
-                            fontSize:20,
-                            color: Colors.blue
-                          ),
-                        ),
-                        IconButton(
-                            iconSize: 30,
-                            color: Colors.white,
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: Icon(Icons.close)),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Container(
-                          width: 175,
-                          child: TextField(
-                            style: TextStyle(fontSize: 20, color: Colors.blue),
-                            controller: tokenTextController,
-                            keyboardType: TextInputType.number,
-                            obscureText: false,
-                            decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.white, width: 2)),
-                                labelText: 'Token'),
-                          ),
-                        ),
+                    Container(
+                      width: 175,
+                      child: TextField(
+                        style: TextStyle(fontSize: 20, color: Colors.blue),
+                        controller: tokenTextController,
+                        keyboardType: TextInputType.number,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.white, width: 2)),
+                            labelText: 'Token'),
                       ),
                     ),
                     IconButton(
