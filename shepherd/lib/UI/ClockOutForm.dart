@@ -92,6 +92,7 @@ class _ClockOutFormState extends State<ClockOutForm>
                   padding: const EdgeInsets.only(top:8.0, bottom: 8),
                   child: MultiSelectFormField(
                     dialogShapeBorder: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
+                    dialogTextStyle: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                     chipBackGroundColor: Colors.blue,
                     chipLabelStyle: TextStyle(color: Colors.white, fontSize: 16),
                     checkBoxCheckColor: Colors.blue,

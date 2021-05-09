@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage>
         {
           final userId = snapshot.data.getInt('userId').toString();
           return Scaffold(
-            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               title: Padding(
                 padding: const EdgeInsets.only(left:8.0, right:8.0),
@@ -102,7 +101,6 @@ class _HomePageState extends State<HomePage>
         else
         {
           return Scaffold(
-            resizeToAvoidBottomInset: false,
             body: SafeArea(
               child: Builder(builder: (context) {
                 return Material(
@@ -142,7 +140,6 @@ class _HomePageState extends State<HomePage>
       context: context,
       builder: (context) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: AlertDialog(
             shape: RoundedRectangleBorder(
@@ -166,7 +163,6 @@ class _HomePageState extends State<HomePage>
       context: context,
       builder: (context) {
         return Scaffold(
-          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: AlertDialog(
             shape: RoundedRectangleBorder(

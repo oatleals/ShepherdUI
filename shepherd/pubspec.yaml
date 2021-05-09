@@ -37,6 +37,8 @@ dependencies:
   connectivity:
   shared_preferences:
   multiselect_formfield:
+    git:
+      url: https://github.com/donahoem/multiselect_formfield # forked into my person repo so we can modify to fit our style
 
   awesome_dialog: 
 
