@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage>
             ),
             backgroundColor: Colors.blue[200],
             content: Container(
-              height: 300, 
+              //height: 300, 
               child: ClockInForm()
             )
           ),

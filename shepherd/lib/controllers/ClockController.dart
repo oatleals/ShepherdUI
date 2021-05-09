@@ -10,7 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 Future<ERROR> clock(
   bool clockin,
   int clientId, 
-  int token) async
+  int token,
+  int officeid) async
 {
   if (clientId.toString().length != 6 || token.toString().length != 6)
     return ERROR.invalid_input;
@@ -29,6 +30,7 @@ Future<ERROR> clock(
     isClockIn: clockin,
     userId: sharedPreferences.getInt('userId'),
     clientId: clientId,
+    officeId: officeid,
     token: token,
     time: locationFinder.locationData.time,
     latitude: locationFinder.locationData.latitude,
@@ -55,6 +57,7 @@ Future<ERROR> clock(
 
   localDBContainer.insert(workData);
   sharedPreferences.setBool('isClockedIn', clockin);
+  sharedPreferences.setInt('officeId', officeid);
 
   return postSuccess ? 
     ERROR.success :

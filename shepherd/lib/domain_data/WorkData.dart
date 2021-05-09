@@ -7,6 +7,7 @@ class WorkData {
 
   // These values are serialized and sent to the EVV.
   int clientId;
+  int officeId;
   int token;
   double time;
   double latitude;
@@ -18,6 +19,7 @@ class WorkData {
       {this.isClockIn,
       this.userId,
       this.clientId,
+      this.officeId,
       this.token,
       this.time,
       this.latitude,
@@ -60,7 +62,7 @@ class WorkData {
         'client_id': clientId.toString(),
         'latitude': latitude.toString(),
         'longitude': longitude.toString(),
-        'office_id' : '1',
+        'office_id' : officeId.toString(),
         'one_time_password': token.toString(),
       } :
       {
@@ -69,7 +71,7 @@ class WorkData {
         'latitude': latitude.toString(),
         'longitude': longitude.toString(),
         'tasks_performed': [""],
-        'office_id' : '1',
+        'office_id' : officeId.toString(),
         'one_time_password': token.toString(),
       }
     );

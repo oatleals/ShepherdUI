@@ -148,7 +148,8 @@ class _ClockOutFormState extends State<ClockOutForm>
                 final status = await clock(
                   false, // is clock out
                   prefs.getInt('clientId'),
-                  int.parse(tokenTextController.text));
+                  int.parse(tokenTextController.text),
+                  prefs.getInt('officeId'));
 
                 showSnackbar(status);
               },

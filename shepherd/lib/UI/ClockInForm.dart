@@ -17,6 +17,7 @@ class _ClockInFormState extends State<ClockInForm>
   Widget build(BuildContext context) 
   {
     final clientIdTextController = new TextEditingController();
+    final officeIdTextController = new TextEditingController();
     final tokenTextController = new TextEditingController();
 
     return Column(
@@ -54,6 +55,27 @@ class _ClockInFormState extends State<ClockInForm>
               icon: Icon(Icons.close)
             ),
           ],
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top:8.0, bottom:8.0),
+          child: TextField(
+            style: TextStyle(
+              fontSize:35,
+              color: Colors.blue
+            ),
+            controller: officeIdTextController,
+            keyboardType: TextInputType.number,
+            obscureText: false,
+            decoration: InputDecoration(
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.white,
+                  width: 2
+                ),
+              ),              
+              labelText: 'Office ID'
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top:8.0, bottom:8.0),
