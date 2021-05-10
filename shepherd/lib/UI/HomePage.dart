@@ -19,8 +19,13 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       future: prefs,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          final userId = snapshot.data.getInt('userId').toString();
+        //if (snapshot.connectionState == ConnectionState.done) {
+          var userId;
+          snapshot.connectionState == ConnectionState.done ?
+            userId = snapshot.data.getInt('userId').toString() 
+            : userId = ""; // This probably isn't good.  It causes some text to
+                           // render after the other GUI objects.
+
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
@@ -94,40 +99,7 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         }
-        else
-        {
-          return Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: SafeArea(
-              child: Builder(builder: (context) {
-                return Material(
-                  color: Colors.transparent,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      height: 200.0,
-                      width: 250.0,
-                      color: Colors.transparent,
-                      child: Column(
-                        children: [
-                          Center(child: CircularProgressIndicator()),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Waiting for verification from server.",
-                              style: TextStyle(color: Colors.white, fontSize: 12)
-                            ),
-                          )
-                        ],
-                      )
-                    )
-                  )
-                );
-              }),
-            ),
-          );
-        }
-      }
+      
     );
   }
 

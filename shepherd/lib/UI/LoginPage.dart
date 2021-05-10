@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shepherd/controllers/ClockController.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final emailTextEditingController = TextEditingController();
     return Scaffold(
       backgroundColor: Colors.blue[200], //Colors.blue[200]
       body: SafeArea(
@@ -30,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 60.0),
             TextField(
+              controller: emailTextEditingController,
               decoration: InputDecoration(
                   labelText: "Email",
                   labelStyle: TextStyle(fontSize: 20),
@@ -45,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                     //disabledElevation: 4.0,
                     onPressed: () {
+                      sendToEmployeeInfoServer('Doe', 'John', 1, 3142222222, emailTextEditingController.text, 2);
                       Navigator.of(context).pushReplacementNamed("/LoginOTP");
                     },
                     child: Text(

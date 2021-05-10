@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-showProgressIndicatorDialog(BuildContext context) {
+showProgressIndicatorAlertDialog(BuildContext context) {
   showDialog<AlertDialog>(
     context: context,
     builder: (context) {

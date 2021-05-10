@@ -5,11 +5,12 @@ class LocationFinder {
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
 
-  // this is the object that holds latitude, longitude, and time.
+  // This is the object that holds latitude, longitude, and time.
   LocationData locationData;
 
   LocationFinder() {
     location = new Location();
+    locationData.time;
   }
 
   Future<void> getLocation() async 

@@ -153,7 +153,7 @@ class _ClockOutFormState extends State<ClockOutForm> {
             ElevatedButton(
               onPressed: () async
               {
-                showProgressIndicatorDialog(context);
+                showProgressIndicatorAlertDialog(context);
                 var token;
 
                 try {

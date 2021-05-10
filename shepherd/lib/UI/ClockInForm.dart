@@ -101,7 +101,7 @@ class _ClockInFormState extends State<ClockInForm> {
         ElevatedButton(
           onPressed: () async
           { 
-            showProgressIndicatorDialog(context);
+            showProgressIndicatorAlertDialog(context);
             var clientId;
             var token;
             var officeId;
