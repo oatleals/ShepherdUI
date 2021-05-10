@@ -9,7 +9,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final emailTextEditingController = TextEditingController();
+=======
+    final employeeIDTextEditingController = TextEditingController();
+>>>>>>> 028f522974ae82b746c40da4e705cb50cace5aad
     return Scaffold(
       backgroundColor: Colors.blue[200], //Colors.blue[200]
       body: SafeArea(
@@ -34,9 +38,10 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: emailTextEditingController,
               decoration: InputDecoration(
-                  labelText: "Email",
+                  labelText: "User ID",
                   labelStyle: TextStyle(fontSize: 20),
                   filled: true),
+              controller: employeeIDTextEditingController,
             ),
             SizedBox(height: 60.0),
             SizedBox(height: 20),
