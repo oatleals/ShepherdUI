@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shepherd/controllers/ClockController.dart';
 
+import '../errors.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -9,11 +11,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    final emailTextEditingController = TextEditingController();
-=======
     final employeeIDTextEditingController = TextEditingController();
->>>>>>> 028f522974ae82b746c40da4e705cb50cace5aad
     return Scaffold(
       backgroundColor: Colors.blue[200], //Colors.blue[200]
       body: SafeArea(
@@ -36,12 +34,11 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 60.0),
             TextField(
-              controller: emailTextEditingController,
+              controller: employeeIDTextEditingController,
               decoration: InputDecoration(
-                  labelText: "User ID",
+                  labelText: "Email",
                   labelStyle: TextStyle(fontSize: 20),
                   filled: true),
-              controller: employeeIDTextEditingController,
             ),
             SizedBox(height: 60.0),
             SizedBox(height: 20),
@@ -52,9 +49,24 @@ class _LoginPageState extends State<LoginPage> {
                   disabledColor: Colors.blueAccent,
                   child: ElevatedButton(
                     //disabledElevation: 4.0,
-                    onPressed: () {
-                      sendToEmployeeInfoServer('Doe', 'John', 1, 3142222222, emailTextEditingController.text, 2);
-                      Navigator.of(context).pushReplacementNamed("/LoginOTP");
+                    onPressed: () async{
+                      var employeeId;
+                      try {
+                        int.parse(employeeIDTextEditingController.text);
+                      }
+                      catch(_) {
+                        employeeId = -1;
+                      }
+
+                      final status = await requestEmailPassword(employeeId);
+                      
+                      if (status == ERROR.success)
+                        Navigator.of(context).pushReplacementNamed("/LoginOTP");
+
+                      if (status == ERROR.http_failed)
+                      {
+
+                      }
                     },
                     child: Text(
                       'Login',

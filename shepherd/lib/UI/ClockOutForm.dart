@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:multiselect_formfield/multiselect_formfield.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/controllers/ClockController.dart';
-import 'package:shepherd/errors.dart';
 
 import 'common.dart';
 
@@ -173,7 +172,7 @@ class _ClockOutFormState extends State<ClockOutForm> {
                   prefs.getInt('officeId'));
 
                 Navigator.of(context).pop(); // pop progress indicator
-                showSnackbar(status);
+                showSnackbar(context, status);
               },
 
               child: Container(
@@ -191,70 +190,5 @@ class _ClockOutFormState extends State<ClockOutForm> {
         );
       }
     );
-  }
-
-  void showSnackbar(ERROR status) 
-  {
-    switch (status)
-    {
-      case ERROR.success:
-        final snackBar = SnackBar(
-          content: Row(
-            children: [
-              Text('Clock Out: ',
-                style: TextStyle(color: Colors.white, fontSize: 20)),
-              Text('SUCCESS',
-                style: TextStyle(color: Colors.green, fontSize: 20)),
-            ],
-          )
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        while (Navigator.of(context).canPop()) 
-          Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed('/Home');
-        break;
-
-      case ERROR.http_failed:
-        final snackBar = SnackBar(
-          content: Row(
-            children: [
-              Text('Clock Out: ',
-                style: TextStyle(color: Colors.white, fontSize: 20)),
-              Text('SUCCESS (UNVERIFIED)',
-                style: TextStyle(color: Colors.yellow, fontSize: 20)),
-            ],
-          )
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        while (Navigator.of(context).canPop()) 
-          Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed('/Home');
-        break;
-
-      case ERROR.no_connection:
-        final snackBar = SnackBar(
-          content: Row(
-            children: [
-              Text('Clock Out: ',
-                style: TextStyle(color: Colors.white, fontSize: 20)),
-              Text('SUCCESS (UNVERIFIED)',
-                style: TextStyle(color: Colors.yellow, fontSize: 20)),
-            ],
-          )
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        while (Navigator.of(context).canPop()) 
-          Navigator.of(context).pop();
-        Navigator.of(context).pushReplacementNamed('/Home');
-        break;
-
-      case ERROR.invalid_input:
-        final snackBar = SnackBar(
-          content: Text('INVALID INPUT',
-            style: TextStyle(color: Colors.red, fontSize: 20)));
-        FocusScope.of(context).unfocus(); // hide keyboard
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        break;
-    }
   }
 }

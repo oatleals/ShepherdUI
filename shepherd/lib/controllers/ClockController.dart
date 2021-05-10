@@ -70,10 +70,12 @@ Future<ERROR> clock(
 }
 
 
-Future<ERROR> requestSMSPassword(int userId) async 
+Future<ERROR> requestEmailPassword(int userId) async 
 {
   final userIdText = userId.toString();
-  final url = 'http://54.158.192.252/employee/email_service/sms/' + userIdText;
+  final url = 'http://54.158.192.252/employee/email_service/email/' + userIdText;
+
+  print(url);
 
   final client = Client();
   final response = await client.get(url);
@@ -89,10 +91,6 @@ Future<ERROR> requestSMSPassword(int userId) async
     ERROR.success
     : ERROR.http_failed;
 }
-
-
-
-
 
 Future<ERROR> testEmployeeInfoConnection(
   String lastName,
