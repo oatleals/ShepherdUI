@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shepherd/UI/common.dart';
 
 import 'ClockInForm.dart';
 import 'ClockOutForm.dart';
@@ -19,13 +20,9 @@ class _HomePageState extends State<HomePage> {
     return FutureBuilder(
       future: prefs,
       builder: (context, snapshot) {
-        //if (snapshot.connectionState == ConnectionState.done) {
-          var userId;
-          snapshot.connectionState == ConnectionState.done ?
-            userId = snapshot.data.getInt('userId').toString() 
-            : userId = ""; // This probably isn't good.  It causes some text to
-                           // render after the other GUI objects.
-
+        if (snapshot.connectionState == ConnectionState.done) {
+          final userId = snapshot.data.getInt('userId').toString();
+      
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
@@ -99,7 +96,14 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         }
-      
+        else
+        {
+          return Scaffold(
+
+          );
+          showProgressIndicatorAlertDialog(context);
+        }
+      }
     );
   }
 

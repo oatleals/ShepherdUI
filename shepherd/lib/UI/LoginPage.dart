@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shepherd/UI/common.dart';
 import 'package:shepherd/controllers/ClockController.dart';
 
 import '../errors.dart';
@@ -12,6 +14,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final employeeIDTextEditingController = TextEditingController();
+    final emailTextEditingController = TextEditingController();
+    
     return Scaffold(
       backgroundColor: Colors.blue[200], //Colors.blue[200]
       body: SafeArea(
@@ -36,7 +40,14 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: employeeIDTextEditingController,
               decoration: InputDecoration(
-                  labelText: "Email",
+                  labelText: "User ID",
+                  labelStyle: TextStyle(fontSize: 20),
+                  filled: true),
+            ),
+            TextField(
+              controller: emailTextEditingController,
+              decoration: InputDecoration(
+                  labelText: "Email Address",
                   labelStyle: TextStyle(fontSize: 20),
                   filled: true),
             ),
@@ -48,29 +59,29 @@ class _LoginPageState extends State<LoginPage> {
                   height: 50,
                   disabledColor: Colors.blueAccent,
                   child: ElevatedButton(
-                    //disabledElevation: 4.0,
-                    onPressed: () async{
+                    onPressed: () async
+                    {
+                      final prefs = await SharedPreferences.getInstance();
+                      final email = emailTextEditingController.text;
                       var employeeId;
                       try {
-                        int.parse(employeeIDTextEditingController.text);
+                        employeeId = int.parse(employeeIDTextEditingController.text);
                       }
                       catch(_) {
                         employeeId = -1;
                       }
+                      prefs.setInt('userId', employeeId);
 
-                      final status = await requestEmailPassword(employeeId);
-                      
+
+                      var status = await requestEmailConfirmation(email, employeeId);                      
                       if (status == ERROR.success)
                         Navigator.of(context).pushReplacementNamed("/LoginOTP");
-
-                      if (status == ERROR.http_failed)
-                      {
-
-                      }
+                      else 
+                        showSnackbar(context, status);
                     },
                     child: Text(
-                      'Login',
-                      style: TextStyle(fontSize: 30, color: Colors.white),
+                      'Request Email Verification',
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                 )

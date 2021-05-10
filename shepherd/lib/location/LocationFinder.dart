@@ -10,7 +10,6 @@ class LocationFinder {
 
   LocationFinder() {
     location = new Location();
-    locationData.time;
   }
 
   Future<void> getLocation() async 

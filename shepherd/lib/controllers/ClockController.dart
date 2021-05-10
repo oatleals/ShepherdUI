@@ -42,11 +42,11 @@ Future<ERROR> clock(
 
   if (await connection.isConnected())
   {
-    final url = 'evv_server_is_down';
-    /*
+    //final url = 'evv_server_is_down';
+    
     final url = clockin ? 
       Uri.parse('http://ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-in'):
-      Uri.parse('http://ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-out');*/
+      Uri.parse('http://ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-out');
 
     final client = Client();
     final response = await client.post(
@@ -69,8 +69,24 @@ Future<ERROR> clock(
     ERROR.http_failed;
 }
 
+Future<ERROR> requestEmailConfirmation(String email, int userId) async 
+{
+  final userIdText = userId.toString();
+  final url = 'http://54.158.192.252/employee/email_service/v_email/' + userIdText;
 
-Future<ERROR> requestEmailPassword(int userId) async 
+  final client = Client();
+  final response = await client.get(url);
+  client.close();
+
+  print(response.statusCode);
+  final success = response.statusCode == 200;
+
+  return success ?
+    ERROR.success
+    : ERROR.http_failed;
+}
+
+Future<ERROR> requestOTPEmail(int userId) async 
 {
   final userIdText = userId.toString();
   final url = 'http://54.158.192.252/employee/email_service/email/' + userIdText;
@@ -91,6 +107,34 @@ Future<ERROR> requestEmailPassword(int userId) async
     ERROR.success
     : ERROR.http_failed;
 }
+
+Future<ERROR> verifyOTP(int otp, int userId) async {
+  String str_otp = otp.toString();
+
+  final url = 'http://54.158.192.252/employee/OTP/' + userId.toString() + '/';
+
+  print(url);
+
+  final client = Client();
+  final response = await client.post(
+    url,
+    body : {
+      "OTP" : str_otp
+    }  
+  );
+
+  print(response.body);
+
+  client.close();
+
+  print(response.statusCode);
+  final success = response.statusCode == 200;
+
+  return success ?
+    ERROR.success
+    : ERROR.http_failed;
+}
+
 
 Future<ERROR> testEmployeeInfoConnection(
   String lastName,

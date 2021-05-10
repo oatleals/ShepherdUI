@@ -1,8 +1,12 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.shepherd">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <application android:usesCleartextTraffic="true"/>
+    <application
+        android:usesCleartextTraffic="true"
+        tools:node="merge" />
 </manifest>

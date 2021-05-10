@@ -39,7 +39,10 @@ Future<void> initializeSharedPrefs() async {
   final prefs = await SharedPreferences.getInstance();
   prefs.setInt('userId', 1);
 
-  if (prefs.getBool('isClockedIn') == null) {
+  try {
+    prefs.getBool('isClockedIn');
+  }
+  catch (_) {
     prefs.setBool('isClockedIn', false);
   }
 

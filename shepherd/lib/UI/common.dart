@@ -65,10 +65,8 @@ void showSnackbar(BuildContext context, ERROR status)
       final snackBar = SnackBar(
         content: Row(
           children: [
-            Text('Clock In: ',
-              style: TextStyle(color: Colors.white, fontSize: 20)),
-            Text('SUCCESS (UNVERIFIED)',
-              style: TextStyle(color: Colors.yellow, fontSize: 20)),
+            Text('CONNECTION TO SERVER FAILED',
+              style: TextStyle(color: Colors.red, fontSize: 20)),
           ],
         )
       );
