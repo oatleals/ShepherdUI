@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shepherd/UI/common.dart';
 
 import 'ClockInForm.dart';
 import 'ClockOutForm.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           final userId = snapshot.data.getInt('userId').toString();
+      
           return Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
@@ -97,35 +99,9 @@ class _HomePageState extends State<HomePage> {
         else
         {
           return Scaffold(
-            resizeToAvoidBottomInset: false,
-            body: SafeArea(
-              child: Builder(builder: (context) {
-                return Material(
-                  color: Colors.transparent,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      height: 200.0,
-                      width: 250.0,
-                      color: Colors.transparent,
-                      child: Column(
-                        children: [
-                          Center(child: CircularProgressIndicator()),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Waiting for verification from server.",
-                              style: TextStyle(color: Colors.white, fontSize: 12)
-                            ),
-                          )
-                        ],
-                      )
-                    )
-                  )
-                );
-              }),
-            ),
+
           );
+          showProgressIndicatorAlertDialog(context);
         }
       }
     );
