@@ -3,8 +3,7 @@ import 'package:shepherd/domain_data/EmployeeData.dart';
 import 'package:shepherd/domain_data/LocalDBContainer.dart';
 import 'package:shepherd/domain_data/WorkData.dart';
 import 'package:shepherd/location/LocationFinder.dart';
-import 'package:shepherd/errors.dart';
-import 'package:shepherd/domain_data/EmployeeData.dart';
+import 'package:shepherd/common/errors.dart';
 
 
 import 'package:http/http.dart';
@@ -42,8 +41,6 @@ Future<ERROR> clock(
 
   if (await connection.isConnected())
   {
-    //final url = 'evv_server_is_down';
-    
     final url = clockin ? 
       Uri.parse('http://ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-in'):
       Uri.parse('http://ec2-52-23-212-121.compute-1.amazonaws.com:8080/evv/clock-out');
@@ -109,8 +106,6 @@ Future<ERROR> requestOTPEmail(int userId) async
 }
 
 Future<ERROR> verifyOTP(int otp, int userId) async {
-  String str_otp = otp.toString();
-
   final url = 'http://54.158.192.252/employee/OTP/' + userId.toString() + '/';
 
   print(url);
@@ -118,9 +113,7 @@ Future<ERROR> verifyOTP(int otp, int userId) async {
   final client = Client();
   final response = await client.post(
     url,
-    body : {
-      "OTP" : str_otp
-    }  
+    body : { "OTP" : otp.toString() }  
   );
 
   print(response.body);
@@ -134,7 +127,6 @@ Future<ERROR> verifyOTP(int otp, int userId) async {
     ERROR.success
     : ERROR.http_failed;
 }
-
 
 Future<ERROR> testEmployeeInfoConnection(
   String lastName,
