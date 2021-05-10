@@ -1,1 +1,6 @@
-gang
+Built with Flutter.  Check out flutter.dev to get started with flutter.
+
+project source files are in shepherd/lib
+project package dependencies are in shepherd/pubspec.yaml
+ios config files are in shepherd/ios
+android config files are in shepherd/android
