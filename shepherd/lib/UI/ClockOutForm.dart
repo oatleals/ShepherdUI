@@ -109,11 +109,6 @@ class _ClockOutFormState extends State<ClockOutForm> {
                     title: Text('Tasks', style: TextStyle(color: Colors.white, fontSize: 24),),
                     hintWidget: null,
                     autovalidate: false,
-                    validator: (value) {
-                      if (value == null || value.length == 0) {
-                        return 'Please select one or more options';
-                      }
-                    },
                     dataSource: [
                       {
                         "display": "task1",

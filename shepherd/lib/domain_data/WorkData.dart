@@ -41,20 +41,6 @@ class WorkData {
     };
   }
 
-  /*
-  String serializeForEVV() {
-    print(time.toString());
-    return jsonEncode({
-      'time_stamp': '2021-03-27 00:00:00',
-      'client_id': 0,
-      'latitude': 0,
-      'longitude': 0,
-      'office_id' : 1,
-      'one_time_password': 0,
-    });
-  }
-  */
-
   String serializeForEVV() {
     return jsonEncode(
       isClockIn ? {
