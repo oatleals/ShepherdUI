@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:shepherd/connectivity/ConnectionChecker.dart';
 import 'package:shepherd/domain_data/EmployeeData.dart';
 import 'package:shepherd/domain_data/LocalDBContainer.dart';
@@ -85,6 +87,9 @@ Future<ERROR> requestEmailConfirmation(String email, int userId) async
 
 Future<ERROR> requestOTPEmail(int userId) async 
 {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setInt('userId', userId);
+
   final userIdText = userId.toString();
   final url = 'http://54.158.192.252/employee/email_service/email/' + userIdText;
 
@@ -113,7 +118,8 @@ Future<ERROR> verifyOTP(int otp, int userId) async {
   final client = Client();
   final response = await client.post(
     url,
-    body : { "OTP" : otp.toString() }  
+    headers: <String, String>{'Content-Type': 'application/json'}, 
+    body : jsonEncode({ "OTP" : otp.toString() })  
   );
 
   print(response.body);

@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shepherd/UI/common.dart';
 import 'package:shepherd/controllers/ClockController.dart';
 
-import '../errors.dart';
+import '../common/errors.dart';
 
 class LoginPage extends StatefulWidget {
   @override

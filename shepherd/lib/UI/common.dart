@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../errors.dart';
+import '../common/errors.dart';
 
 showProgressIndicatorAlertDialog(BuildContext context) {
   showDialog<AlertDialog>(
